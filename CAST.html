@@ -16,285 +16,12 @@ body{
     background-color:#040000;
     color:#ffffff;
     font-family:Arial, Helvetica, sans-serif;
-    font-size:10px;
-    margin:0px;
-    opacity:1;
-}
-
-
-
-
-strong{
-    font-size:20px;
-}
-ul{
-    display:flex;
-    list-style-type:none;
-    justify-content:center;
-    align-items:center;
-    margin: 5px;
-}
-
-li {
-    padding:0px 0px 2px 0px;
-    margin:0px 10px 0px 10px;
-    background-color:#2a2a2d;
-    border-radius:3px;
-}
-
-menu{
-    display:flex;
-    background-color:rgb(36, 36, 36);
-    justify-content:flex-start;
-    align-items:top-center;
-    text-align:left;
-    margin:0px;
-    padding:0px 0px 0px 10px;
-    position:relative;
-    z-index: 4;
-}
-.通告1{
-    display:block;
-    background-color:#292a2d;
-    margin:10px 10px 10px 0px;
-    border-radius:5px;
-    width: 15%;
-    height: 118px;
-    padding:5px;
-}
-.通告1 p,h5,h4{
-    padding:0px;
-    margin:0px;
-    color:#ffffff;
-}
-.通告1 h4,h5{font-size:10px;
-    font-weight:normal;
-}
-.両数{
-    font-size:40px;
-    font-weight:bold;
-}
-.運行{
-    font-size:12px;
-    font-weight:bold;
-}
-
-aside{
-    margin-left:10px;
-    
-}
-.プレビュー{
-    width: 100px;
-    height: 33px;
-    border-color: #0167ff;
-    border-width: 1px;
-    border-style: groove;
-    border-radius: 5px;
-    padding: 5px;
-    margin: 0px;
-}
-.戻る{
-    position: fixed;
-    bottom: 0px;
-    left: 290px;
-    height: 34px;
-    width: auto;
-    z-index: 3;    
-}
-.停車{
-    position:fixed; 
-    height: 35px;
-    bottom: 0px;
-    width: auto;
-   right:10px;
-   z-index: 3;
-}
-.標準時分{
-    white-space: nowrap;
-    width: 20px;
-    margin: 0px;
-    padding: 5px 10px 5px 0px;
-    border-right: 3px solid #75777c;
-}
-.標準時分 span{
-    margin: 0px;
-    font-size: 15p;
-}
-.次駅詳細{
-    position: absolute;
-    top: 409px;
-    left: 150px;
-    width: 270px;
-    height: 97px;
-    padding: 10px 0px 0px 10px;
-    border: 1px solid #224ed1;
-    border-radius: 5px;
-    background-color: #1e1e1e;
-}
-.次々駅詳細{
-    position: absolute;
-    top: 335px;
-    left: 160px;
-    width: 250px;
-    height: 50px;
-    padding: 0px 0px 0px 10px;
-    border: 1px groove #2f2e33;
-    border-radius: 5px;
-    background-color: #1e1e1e;
-}
-.次々々駅詳細{
-    position: absolute;
-    top: 255px;
-    left: 160px;
-    width: 250px;
-    height: 50px;
-    padding: 0px 0px 0px 10px;
-    border: 1px groove #2f2e33;
-    border-radius: 5px;
-    background-color: #1e1e1e;
-}
-
-.次駅詳細 .停通{
-    position: relative;
-    top: -55px;
-    font-size: 20px;
-    left:130px;
-    width: 20px;
-    height: 30px;
-}
-.次駅停車時分{
-    position: relative;
-    top: -50px;
-    left: 0px;
-    font-size: 19px;
-    padding:0px 0px 0px 5px;
-}
-.次駅停車秒{
-    position: relative;
-    top: -83px;
-    left: 53px;
-    font-size: 15px;
-    padding:0px 0px 0px 5px;
-}
-.次駅詳細 .駅名{
-    position: relative;
-    top: -8px;
-    font-size: 20px;
-    width: 150px;
-    padding-left: 5px;
-}
-.次々駅詳細 .駅名{
-    position: relative;
-    width: 150px;
-    padding-left: 5px;
-}
-.次々々駅詳細 .駅名{
-    position: relative;
-    width: 150px;
-    padding-left: 5px;
-}
-.次々々駅詳細 .番線{
-    position: relative;
-    top: -73px;
-    left: 150px;
-    width: 30px;
-}
-.停通{
-    position: relative;
-    top: -38px;
-    left: 120px;
-    width: 15px;
-    background-color: #224ed1;
-    padding: 2px;
-    border-radius: 2px;
-}
-.次々駅詳細 .番線{
-    position: relative;
-    top: -75px;
-    left: 150px;
-    width: 30px;
-    padding: 2px;
-    border-radius: 2px;
-}
-.次駅詳細 .番線{
-    position: relative;
-    top: -177px;
-    left: 170px;
-    width: 40px;
-    padding: 2px;
-    border-radius: 2px;
-    font-size: 20px;
-}
-header.行先{
-    position: relative;
-    background-color: #040000;
-    padding: 5px;
-    text-align: bottom;
-    height: 17px;
-    z-index: 10;
-}
-div.時刻{
-    position: fixed;
-    bottom: 0px;
-    left: 130px;
-    right: 0px;
-    height: 40px;
-    text-align: bottom;
-    background-color: #292a2d;
-    vertical-align: bottom;
-    display: flex;
-    align-items: flex-end;
-    padding: 0px 0px 5px 35px;
-    z-index: 1;
-}
-div.時刻 h3{
-    margin: 0px;
-    font-size: 25px;
-    font-weight: bold;
-}
-div.時刻 p{
-    margin-bottom: 1px;
-    padding-left:5px;
-    font-size: 15px;
-    font-weight: bold;
-}
-
-.背景画像{
-    position: absolute;
-    top: 250px;
-    left: 170px;
-    width: 250px;
-    height: 56%;
-    z-index: 0;
-}
-.地図画像{
-    position: absolute;
-    top: 150px;
-    right: 0px;
-    z-index: 0;
-    height: 70%;
-    width: auto;
-    width:50px;}
-
-html,
-body{
-    scrollbar-width:none;
-    -ms-overflow-style:none;
-}
-html::-webkit-scrollbar,
-body::-webkit-scrollbar{
-    display:none;
-}
-body{
-    background-color:#040000;
-    color:#ffffff;
-    font-family:Arial, Helvetica, sans-serif;
     font-size:1.8vh;
     margin:0;
     opacity:1;
 }
 
-
+h4 {font-size:1.4vh;}
 
 
 strong{
@@ -307,6 +34,7 @@ ul{
     align-items:center;
     margin: 2vw;
 }
+header{height:10vh;}
 
 li {
     padding:0px 0px 2px 0px;
@@ -325,6 +53,7 @@ menu{
     padding:0px 0px 0px 10px;
     position:relative;
     z-index: 4;
+    height: 23vh;
 }
 .通告1{
     display:block;
@@ -332,7 +61,7 @@ menu{
     margin:10px 10px 10px 0px;
     border-radius:5px;
     width: 15%;
-    height: 118px;
+    height:20vh;
     padding:5px;
 }
 .通告1 p,h5,h4{
@@ -344,40 +73,43 @@ menu{
     font-weight:normal;
 }
 .両数{
-    font-size:40px;
+    font-size:5.2vh;
     font-weight:bold;
 }
 .運行{
-    font-size:12px;
+    font-size:2.2vh;
     font-weight:bold;
 }
-
+.運行 h4{
+    padding:2px 20px 2px 20px;
+    font-size:2.2vh;
+}
 aside{
     margin-left:10px;
     
 }
 .プレビュー{
-    width: 100px;
-    height: 33px;
+    width: 17vh;
+    height: 7.4vh;
     border-color: #0167ff;
     border-width: 1px;
     border-style: groove;
     border-radius: 5px;
     padding: 5px;
-    margin: 0px;
+    margin: 0vh;
 }
 .戻る{
     position: fixed;
-    bottom: 0px;
-    left: 290px;
-    height: 34px;
+    bottom: 1vh;
+    left: 61vw;
+    height: 5vh;
     width: auto;
     z-index: 3;    
 }
 .停車{
     position:fixed; 
-    height: 35px;
-    bottom: 0px;
+    height: 5vh;
+    bottom: 1vh;
     width: auto;
    right:10px;
    z-index: 3;
@@ -386,19 +118,22 @@ aside{
     white-space: nowrap;
     width: 20px;
     margin: 0px;
-    padding: 5px 10px 5px 0px;
+    padding: 5px 20px 5px 0px;
     border-right: 3px solid #75777c;
+    font-size:1.5vh;
 }
 .標準時分 span{
     margin: 0px;
-    font-size: 15p;
+    font-size:2vh;
 }
 .次駅詳細{
     position: absolute;
-    top: 409px;
-    left: 150px;
-    width: 270px;
-    height: 97px;
+    vertical-align: middle;
+    display: inline-block;
+    top: 64vh;
+    left: 27.7vw;
+    width: 60vw;
+    height: 17vh;
     padding: 10px 0px 0px 10px;
     border: 1px solid #224ed1;
     border-radius: 5px;
@@ -406,75 +141,90 @@ aside{
 }
 .次々駅詳細{
     position: absolute;
-    top: 335px;
-    left: 160px;
-    width: 250px;
-    height: 50px;
+    top: 52vh;
+    left: 30vw;
+    width: 54vw;
+    height: 6vh;
     padding: 0px 0px 0px 10px;
     border: 1px groove #2f2e33;
     border-radius: 5px;
     background-color: #1e1e1e;
+    color:#ffffffa3
 }
 .次々々駅詳細{
     position: absolute;
-    top: 255px;
-    left: 160px;
-    width: 250px;
-    height: 50px;
+    display: flex;
+    
+    top: 40vh;
+    left: 30vw;
+    width: 54vw;
+    height: 6vh;
     padding: 0px 0px 0px 10px;
     border: 1px groove #2f2e33;
     border-radius: 5px;
     background-color: #1e1e1e;
+    color:#ffffffab;
 }
 
 .次駅詳細 .停通{
     position: relative;
-    top: -55px;
-    font-size: 20px;
-    left:130px;
-    width: 20px;
-    height: 30px;
+    text-align: center;
+    top: 0vh;
+    font-size: 3vh;
+    left:0vw;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 36px;
+    padding: 0;
+    border-radius: 5px;
 }
 .次駅停車時分{
     position: relative;
-    top: -50px;
+    top: 0px;
     left: 0px;
-    font-size: 19px;
+    font-size: 3vh;
     padding:0px 0px 0px 5px;
 }
 .次駅停車秒{
     position: relative;
-    top: -83px;
-    left: 53px;
-    font-size: 15px;
+    top: 0vh;
+    left: 0;
+    font-size: 2vh;
     padding:0px 0px 0px 5px;
 }
 .次駅詳細 .駅名{
     position: relative;
     top: -8px;
-    font-size: 20px;
+    font-size: 3.7vh;
     width: 150px;
     padding-left: 5px;
+    height:7vw;
 }
 .次々駅詳細 .駅名{
     position: relative;
     width: 150px;
     padding-left: 5px;
+    top:-1.5vh;
+    left:1vw;
 }
 .次々々駅詳細 .駅名{
     position: relative;
     width: 150px;
     padding-left: 5px;
+    top:-1.6vh;
 }
 .次々々駅詳細 .番線{
     position: relative;
-    top: -73px;
+    top: -15vh;
     left: 150px;
-    width: 30px;
+    width: 15vw;
 }
 .停通{
     position: relative;
-    top: -38px;
+    top: 0px;
     left: 120px;
     width: 15px;
     background-color: #224ed1;
@@ -483,35 +233,34 @@ aside{
 }
 .次々駅詳細 .番線{
     position: relative;
-    top: -75px;
-    left: 150px;
-    width: 30px;
+    top: -145px;
+    left: 25vw;
+    width: 10vw;
     padding: 2px;
-    border-radius: 2px;
 }
 .次駅詳細 .番線{
     position: relative;
-    top: -177px;
-    left: 170px;
-    width: 40px;
+    width:10vw;
+    height: 5vw;
     padding: 2px;
     border-radius: 2px;
-    font-size: 20px;
+    font-size: 4vw;
+    text-align: center;
 }
 header.行先{
     position: relative;
     background-color: #040000;
     padding: 5px;
     text-align: bottom;
-    height: 17px;
+    height: 4vh;
     z-index: 10;
 }
 div.時刻{
     position: fixed;
     bottom: 0px;
-    left: 130px;
+    left: 27vw;
     right: 0px;
-    height: 40px;
+    height:7.5vh;
     text-align: bottom;
     background-color: #292a2d;
     vertical-align: bottom;
@@ -522,31 +271,31 @@ div.時刻{
 }
 div.時刻 h3{
     margin: 0px;
-    font-size: 25px;
+    font-size: 3em;
     font-weight: bold;
 }
 div.時刻 p{
-    margin-bottom: 1px;
-    padding-left:5px;
-    font-size: 15px;
+    margin-bottom: 0.35vh;
+    padding-left: 3vw;
+    font-size: 2em;
     font-weight: bold;
 }
 
 .背景画像{
     position: absolute;
-    top: 250px;
-    left: 170px;
-    width: 250px;
-    height: 56%;
+    top: 39vh;
+    left: 30.6vw;
+    width: 50vw;
+    height: 52vh;
     z-index: 0;
 }
 .地図画像{
     position: absolute;
-    top: 150px;
+    top: 38vh;
     right: 0px;
     z-index: 0;
-    height: 70%;
-    width: auto;
+    height:53vh;
+    width: 5vw;
     width:50px;}
 
     </style>
@@ -562,7 +311,7 @@ div.時刻 p{
     <header>
         <ul>
             <li class="運行" style="background-color:#040000;"><h3>2317F</h3></li>
-            <li class="運行"><h4> 　313　</h4></li>
+            <li class="運行"><h4>313</h4></li>
             <li class="両数">４</li>
             <li style="background-color:#040000; border-radius:10px;"class="制限">四城ー比良 <strong>120</strong> km/h
             <br>比良ー稲生 <strong>105</strong> km/h</li>
@@ -591,7 +340,7 @@ div.時刻 p{
         </div>
     </menu>
     <header class="行先">
-        <h4><strong style="font-size:12px;">豊橋</strong> 行き</h4>
+        <h4><strong style="font-size:2vh;">豊橋</strong> 行き</h4>
     </header>
     <aside>
         <div class="次々々々駅">
@@ -629,20 +378,20 @@ div.時刻 p{
     <div class="次駅詳細">
         <h2 class="駅名">清洲</h2>
         <h2 class="停通">停</h2>
-        <h2 class="次駅停車時分">13.45</h2>
-        <h2 class="次駅停車秒">03</h2>
         <h2 class="番線">下1</h2>
+        <h2 class="次駅停車時分">13.45<span class="次駅停車秒">03</span></h2>
     </div>
     <div class="時刻">
-        <h3>13:45 </h3>
-        <p>&nbsp;03</p>
+        <h3>13:45 </h3><p>&nbsp;03</p>
     </div>
     <img src="https://github.com/Aethel-Kodama/CAS-SR/blob/main/%E6%88%BB%E3%82%8B.png?raw=true"class="戻る">
     <img src="https://github.com/Aethel-Kodama/CAS-SR/blob/main/%E5%81%9C%E8%BB%8A.png?raw=true"class="停車">
     <img src="https://github.com/Aethel-Kodama/CAS-SR/blob/main/%E5%9C%B0%E5%9B%B3.png?raw=true" class="地図画像">
-    <script>
-        window.onload = function(){
-    const car = prompt("使用する編成を入力してください")}
+<script>
+    window.onload = function(){
+    const carnew = prompt("使用する編成を入力してください")
+    const car = document.querySelector(".運行 h4")
+    car.textContent=" "+carnew+" "}
 function nowtime(){
     const date = new Date();
     const hours = date.getHours();
@@ -735,6 +484,6 @@ else if(restriction&&terminatesta>6&&direction==-1){
 else if(restriction&&startingsta<=6&&direction==-1){
     restriction.innerHTML = stalist[startingsta].slice(0,2)+"ー"+stalist[terminatesta].slice(0,2)+"&nbsp;<strong>120</strong> km/h"
 }
-    </script>
+</script>
 </body>
 </html>
