@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>BroadcastChannel 通告デモ</title>
+</head>
+<body>
+  <h1>タブ間通告デモ</h1>
+
+  <button id="send">通告を送る</button>
+  <div id="log"></div>
+
+  <script>
+    // 1. チャンネルを作成（名前は任意）
+    const channel = new BroadcastChannel('notice-channel');
+    const log = document.getElementById('log');
+
+    // 2. 他ページからの通告を受信
+    channel.onmessage = (event) => {
+      const msg = event.data;
+      log.innerHTML += `<p>📩 受信: ${msg}</p>`;
+    };
+
+    // 3. ボタンを押したら通告を送信
+    document.getElementById('send').addEventListener('click', () => {
+      const message = 'こんにちは、別タブさん！';
+      channel.postMessage(message);
+      log.innerHTML += `<p>📤 送信: ${message}</p>`;
+    });
+
+    // 4. ページを閉じるときにクリーンアップ
+    window.addEventListener('beforeunload', () => {
+      channel.close();
+    });
+  </script>
+</body>
+</html>
