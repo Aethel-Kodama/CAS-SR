@@ -10,7 +10,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=M+PLUS+1p&family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    
+    <div id="inputPanel">
+    <h2>乗務お疲れさまでした。</h2>
+
+    <div class="field">
+    <label for="trainType">種別</label>
+        <select id="trainType">
+        <option value="普通">普通</option>
+        <option value="快速">快速</option>
+        <option value="快急">快急</option>
+        <option value="準急">準急</option>
+        <option value="急行">急行</option>
+        <option value="特急">特急</option>
+        </select>
+    </div>
+
+    <div class="field">
+        <label for="destination">終点</label>
+        <select id="destination"></select>
+    </div>
+
+    <div class="field">
+        <label for="passingStation">退避駅（任意）</label>
+        <select id="passingStation"></select>
+    </div>
+
+    <div class="field">
+        <label for="departureTime">始発駅発車時刻</label>
+        <input id="departureTime" type="time" step="1">
+    </div>
+
+    <button id="applyBtn">オーバーレイに反映</button>
+
+  
+</div>
     <header>
         <ul>
             <li class="運行" style="background-color:#040000;"><h3>2317F</h3></li>
@@ -20,7 +53,7 @@
             <br>比良ー稲生 <strong>105</strong> km/h</li>
         </ul>
     </header>
-    <menu>
+    <div class="menu">
         <div class="通告1">
             
             <p>通告</p>
@@ -41,7 +74,7 @@
             <h5>下本</h5>
             
         </div>
-    </menu>
+    </div>
     <header class="行先">
         <h4><strong style="font-size:12px;">豊橋</strong> 行き</h4>
     </header>
@@ -89,9 +122,11 @@
         <h3>13:45 </h3>
         <p>&nbsp;03</p>
     </div>
+    
     <img src="https://github.com/Aethel-Kodama/CAS-SR/blob/main/%E6%88%BB%E3%82%8B.png?raw=true"class="戻る">
-    <img src="https://github.com/Aethel-Kodama/CAS-SR/blob/main/%E5%81%9C%E8%BB%8A.png?raw=true"class="停車">
+    <h3 class="停車">次へ</h3>
     <img src="https://github.com/Aethel-Kodama/CAS-SR/blob/main/%E5%9C%B0%E5%9B%B3.png?raw=true" class="地図画像">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="CAST.js"></script>
 </body>
 </html>

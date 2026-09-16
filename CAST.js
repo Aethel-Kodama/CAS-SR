@@ -15,16 +15,23 @@ function nowtime(){
         nowseconds.textContent = String(seconds).padStart(2, "0");
     }
 }
+
 //alert("幅:"+window.innerWidth+"px 高さ:"+window.innerHeight+"px")
 setInterval(nowtime,1000);
 nowtime();
 const stalist = ["四城市","西四城","三城台二丁目","須津岡","府","狩川橋","比良新町","片島","鐘山公園","稲生沢","双葉茶屋","稲生沢温泉","笠浜"];
+$(function() {
+    $("#inputPanel").hide();
+});
+
 //定義
     
-    let direction = -1; //SSR -> INZ:1,INZ -> SSR:-1
-    let terminatesta = 7;
-    let startingsta = 9;
+    let direction = 1; //SSR -> INZ:1,INZ -> SSR:-1
+    let terminatesta = 12;
+    let startingsta = 0;
     let nowsta = startingsta;
+    let nnowsta = nowsta;
+
 
 const nnnsta = document.querySelector(".次々々駅詳細")
 const nnsta = document.querySelector(".次々駅詳細")
@@ -37,24 +44,25 @@ function staname(){
 
     const nownextnextnextsta = document.querySelector(".次々々駅詳細 .駅名");
     if (nownextnextnextsta) nownextnextnextsta.textContent = stalist[nowsta + 2 * direction];
-
+}
+function nstaname(){
     const preview0 = document.querySelector(".前駅 .プレビュー");
-    if (preview0) preview0.textContent = stalist[nowsta - 1 * direction];
+    if (preview0) preview0.textContent = stalist[nnowsta - 1 * direction];
 
     const preview1 = document.querySelector(".次駅 .プレビュー");
-    if (preview1) preview1.textContent = stalist[nowsta];
+    if (preview1) preview1.textContent = stalist[nnowsta];
 
     const preview2 = document.querySelector(".次々駅 .プレビュー");
-    if (preview2) preview2.textContent = stalist[nowsta + 1 * direction];
+    if (preview2) preview2.textContent = stalist[nnowsta + 1 * direction];
 
     const preview3 = document.querySelector(".次々々駅 .プレビュー");
-    if (preview3) preview3.textContent = stalist[nowsta + 2 * direction];
+    if (preview3) preview3.textContent = stalist[nnowsta + 2 * direction];
 
     const preview4 = document.querySelector(".次々々々駅 .プレビュー");
-    if (preview4) preview4.textContent = stalist[nowsta + 3 * direction];
+    if (preview4) preview4.textContent = stalist[nnowsta + 3 * direction];
 }
 staname();
-function terminating(){
+function terminating(){ //終点到着時に次駅の表示を消す
     if (nnnsta) {
         if (nowsta + 2 > terminatesta && direction == 1 || nowsta - 2 < terminatesta && direction == -1) {
             nnnsta.style.opacity = 0;
@@ -62,7 +70,6 @@ function terminating(){
             nnnsta.style.opacity = 1;
         }
     }
-
     if (nnsta) {
         if (nowsta + 1 > terminatesta && direction == 1 || nowsta - 1 < terminatesta && direction == -1) {
             nnsta.style.opacity = 0;
@@ -74,25 +81,63 @@ function terminating(){
 terminating();
 
 const back = document.querySelector(".戻る");
-if (back) {
+const next = document.querySelector(".停車");
+
+
+if (back) { // 戻るボタンを押したときの挙動まとめ
     back.addEventListener("click", function(){
-        if (nowsta > startingsta && direction || nowsta < startingsta && direction == -1) {
-            nowsta = nowsta - 1 * direction;
-            staname();
-            terminating();
+        if (next.textContent!="次へ"&&next.textContent!="終了"){
+            if (nowsta > startingsta && direction==1 || nowsta < startingsta && direction == -1) {
+                nowsta = nowsta - 1 * direction;
+                nnowsta = nnowsta - 1*direction;
+                staname();
+                nstaname();
+                terminating();
+            }
+            if (next.textContent=="停車")
+                next.textContent="次へ";
         }
+        else if (next.textContent=="次へ"){next.textContent="停車";}
+        
     });
 }
-const next = document.querySelector(".停車")
-if (next) {
+
+if (next) { //進むボタンを押したときの挙動まとめ
     next.addEventListener("click", function(){
-        if (nowsta != terminatesta) {
-            nowsta = nowsta + 1 * direction;
-            staname();
-            terminating();
+        if (nowsta === terminatesta&&next.textContent=="停車"){
+            next.textContent="終了"
+            $("#inputPanel").show()
         }
+        if (nowsta != terminatesta) {
+            if (next.textContent === "次へ"){
+                
+                $(".次駅詳細 *").hide()
+                
+                $(".次々駅詳細 *").hide()
+                
+                $(".次々々駅詳細 *").hide()
+                nowsta=nowsta+1*direction;
+                $(".次駅詳細 *").fadeIn()
+                $(".次々駅詳細 *").fadeIn()
+                $(".次々々駅詳細 *").fadeIn()
+                terminating();
+                next.textContent="停車";
+                staname();
+                $(".プレビュー,.標準時分")
+                    .animate({top:"+=69px"},700)
+                    .animate({top:"-=69px"},0)
+                    .promise()
+                    .done(function(){
+                    nnowsta = nnowsta + 1 * direction;
+                    nstaname();
+                    })               
+            }
+            else {
+                next.textContent = "次へ";
+            };
+        };
     });
-}
+};
 const trainCount = document.querySelector(".両数");
 if (trainCount) trainCount.textContent = "２";
 
@@ -114,3 +159,37 @@ else if(restriction&&terminatesta>6&&direction==-1){
 else if(restriction&&startingsta<=6&&direction==-1){
     restriction.innerHTML = stalist[startingsta].slice(0,2)+"ー"+stalist[terminatesta].slice(0,2)+"&nbsp;<strong>120</strong> km/h"
 }
+
+$(function(){
+
+  // 終点の選択肢リストz
+  var staList = ["四城市","西四城","三城台二丁目","須津岡","府","狩川橋","比良新町","片島","鐘山公園","稲生沢","双葉茶屋","稲生沢温泉","笠浜"];
+
+  // staListの内容をプルダウンに反映
+  var $destination = $("#destination");
+  $.each(staList, function(i, name){
+    $destination.append($("<option>").val(name).text(name));
+  });
+  var $passingstation = $("#passingStation");
+  $.each(staList, function(i, name){
+    $passingstation.append($("<option>").val(name).text(name));
+  });
+
+  // 列車情報を格納する変数
+  var trainData = {
+    type: "",
+    destination: "",
+    passingStation: "",
+    departureTime: ""
+  };
+
+  $("#applyBtn").on("click", function(){
+    trainData.type            = $("#trainType").val();
+    trainData.destination     = $("#destination").val();
+    trainData.passingStation  = $("#passingStation").val();
+    trainData.departureTime   = $("#departureTime").val();
+    $("#inputPanel").hide()
+  });
+
+  
+});

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>列車情報オーバーレイ</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<style>
+  :root{
+    --panel-bg:#0d0d0d;
+    --accent:#ffb400;
+    --accent2:#3ad1ff;
+    --text:#f2f2f2;
+    --sub:#8a8a8a;
+    --border:#2a2a2a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
+    background:#1c1c1e;
+    color:var(--text);
+    padding:24px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:24px;
+    align-items:flex-start;
+  }
+
+  /* ---------- 入力パネル ---------- */
+  #inputPanel{
+    background:#ffffff;
+    color:#111;
+    border-radius:12px;
+    padding:20px 24px;
+    width:320px;
+    box-shadow:0 4px 16px rgba(0,0,0,.3);
+  }
+  #inputPanel h2{
+    font-size:16px;
+    margin:0 0 16px;
+    border-bottom:2px solid var(--accent);
+    padding-bottom:8px;
+  }
+  .field{
+    margin-bottom:14px;
+  }
+  .field label{
+    display:block;
+    font-size:12px;
+    color:#555;
+    margin-bottom:4px;
+  }
+  .field select,
+  .field input{
+    width:100%;
+    padding:8px 10px;
+    font-size:14px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    background:#fafafa;
+  }
+  #applyBtn{
+    width:100%;
+    padding:10px;
+    margin-top:8px;
+    border:none;
+    border-radius:6px;
+    background:#111;
+    color:#fff;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+  }
+  #applyBtn:hover{background:#333;}
+
+  
+  
+</style>
+</head>
+<body>
+
+<div id="inputPanel">
+  <h2>列車情報入力</h2>
+
+  <div class="field">
+    <label for="trainType">種別</label>
+    <select id="trainType">
+      <option value="各駅停車">各駅停車</option>
+      <option value="普通">普通</option>
+      <option value="区間快速">区間快速</option>
+      <option value="快速">快速</option>
+      <option value="準急">準急</option>
+      <option value="急行">急行</option>
+      <option value="通勤特急">通勤特急</option>
+      <option value="特急">特急</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="destination">終点</label>
+    <select id="destination"></select>
+  </div>
+
+  <div class="field">
+    <label for="passingStation">退避駅（任意）</label>
+    <select id="passingStation"></select>
+  </div>
+
+  <div class="field">
+    <label for="departureTime">始発駅発車時刻</label>
+    <input id="departureTime" type="time" step="1">
+  </div>
+
+  <button id="applyBtn">オーバーレイに反映</button>
+
+  
+</div>
+
+<script>
+$(function(){
+
+  // 終点の選択肢リスト
+  var staList = ["四城市","西四城","三城台二丁目","須津岡","府","狩川橋","比良新町","片島","鐘山公園","稲生沢","双葉茶屋","稲生沢温泉","笠浜"];
+
+  // staListの内容をプルダウンに反映
+  var $destination = $("#destination");
+  $.each(staList, function(i, name){
+    $destination.append($("<option>").val(name).text(name));
+  });
+  var $passingstation = $("#passingStation");
+  $.each(staList, function(i, name){
+    $passingstation.append($("<option>").val(name).text(name));
+  });
+
+  // 列車情報を格納する変数
+  var trainData = {
+    type: "",
+    destination: "",
+    passingStation: "",
+    departureTime: ""
+  };
+
+  $("#applyBtn").on("click", function(){
+    trainData.type            = $("#trainType").val();
+    trainData.destination     = $("#destination").val();
+    trainData.passingStation  = $("#passingStation").val();
+    trainData.departureTime   = $("#departureTime").val();
+  });
+
+  
+});
+</script>
+</body>
+</html>
