@@ -199,17 +199,17 @@ function startDate(deptime){//Date型に変換
 }
 function eachDate(){
     if (nowsta<startingsta){
-        currenttime.setSeconds(currenttime.getSeconds()+noboritakesec[nowsta-1])
-        currenttime.setMinutes(currenttime.getMinutes()+noboritakemin[nowsta-1])
+        currenttime.setSeconds(currenttime.getSeconds()+noboritakesec[nowsta+1])
+        currenttime.setMinutes(currenttime.getMinutes()+noboritakemin[nowsta+1])
     }
     else if (nowsta>startingsta){
-        currenttime.setSeconds(currenttime.getSeconds()+kudaritakesec[nowsta+1])
-        currenttime.setMinutes(currenttime.getMinutes()+kudaritakemin[nowsta+1])
+        currenttime.setSeconds(currenttime.getSeconds()+kudaritakesec[nowsta-1])
+        currenttime.setMinutes(currenttime.getMinutes()+kudaritakemin[nowsta-1])
     }
-    $(".次駅停車時分").text(currenttime.getHours()+":"+currenttime.getMinutes())
-    $(".次駅停車秒").text(currenttime.getSeconds())
+    $(".次駅停車時分").text(currenttime.getHours()+":"+String(currenttime.getMinutes()).padStart(2, "0"))
+    $(".次駅停車秒").text(String(currenttime.getSeconds()).padStart(2, "0"))
 }
-
+ 
 
 $(function(){
 
