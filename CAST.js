@@ -1,11 +1,9 @@
-﻿window.onload = function(){
-    const car = prompt("使用する編成を入力してください")}
+﻿
 function nowtime(){
     const date = new Date();
     const hours = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
-    console.log(`現在の時刻は ${hours} 時 ${minutes} 分 ${seconds} 秒です。`);
     const nowhours = document.querySelector(".時刻 h3");
     if (nowhours) {
         nowhours.textContent = String(hours).padStart(2, "0") + ":" + String(minutes).padStart(2, "0");
@@ -15,22 +13,26 @@ function nowtime(){
         nowseconds.textContent = String(seconds).padStart(2, "0");
     }
 }
-
+//$(function(){$(".次駅 .sec").css("opacity","0")})
 //alert("幅:"+window.innerWidth+"px 高さ:"+window.innerHeight+"px")
 setInterval(nowtime,1000);
 nowtime();
 const stalist = ["四城市","西四城","三城台二丁目","須津岡","府","狩川橋","比良新町","片島","鐘山公園","稲生沢","双葉茶屋","稲生沢温泉","笠浜"];
-$(function() {
-    $("#inputPanel").hide();
-});
+
 
 //定義
     
     let direction = 1; //SSR -> INZ:1,INZ -> SSR:-1
-    let terminatesta = 12;
+    let terminatesta = 2;
     let startingsta = 0;
     let nowsta = startingsta;
     let nnowsta = nowsta;
+    const noboritakemin = [1,1,1,1,1,1,1,1,2]
+    const noboritakesec = [45,55,55,55,10,15,25,55,0]
+    const kudaritakemin = [1,2,1,1,1,1,2,1,2]
+    const kudaritakesec = [40,0,10,10,10,55,10,25,15]
+    let dept;
+    let currenttime;
 
 
 const nnnsta = document.querySelector(".次々々駅詳細")
@@ -60,6 +62,31 @@ function nstaname(){
 
     const preview4 = document.querySelector(".次々々々駅 .プレビュー");
     if (preview4) preview4.textContent = stalist[nnowsta + 3 * direction];
+
+    $(function(){
+        if (direction===1){
+        $(".前駅 .min").text(noboritakemin[nowsta-2]); $(".前駅 .sec").text(String(noboritakesec[nowsta-2] ?? "").padStart(2,"0"));
+
+        $(".次駅 .min").text(noboritakemin[nowsta-1]); $(".次駅 .sec").text(String(noboritakesec[nowsta-1] ?? "").padStart(2,"0"));
+
+        $(".次々駅 .min").text(noboritakemin[nowsta]); $(".次々駅 .sec").text(String(noboritakesec[nowsta] ?? "").padStart(2,"0"));
+
+        $(".次々々駅 .min").text(noboritakemin[nowsta+1]); $(".次々々駅 .sec").text(String(noboritakesec[nowsta+1] ?? "").padStart(2,"0"));
+
+        $(".次々々々駅 .min").text(noboritakemin[nowsta+2]); $(".次々々々駅 .sec").text(String(noboritakesec[nowsta+2] ?? "").padStart(2,"0"));
+        }
+        else if (direction===-1){
+            $(".前駅 .min").text(kudaritakemin[nowsta+2]); $(".前駅 .sec").text(String(kudaritakesec[nowsta-2] ?? "").padStart(2,"0"));
+
+            $(".次駅 .min").text(kudaritakemin[nowsta+1]); $(".次駅 .sec").text(String(kudaritakesec[nowsta-1] ?? "").padStart(2,"0"));
+
+            $(".次々駅 .min").text(kudaritakemin[nowsta]); $(".次々駅 .sec").text(String(kudaritakesec[nowsta] ?? "").padStart(2,"0"));
+
+            $(".次々々駅 .min").text(kudaritakemin[nowsta-1]); $(".次々々駅 .sec").text(String(kudaritakesec[nowsta+1] ?? "").padStart(2,"0"));
+
+            $(".次々々々駅 .min").text(kudaritakemin[nowsta-2]); $(".次々々々駅 .sec").text(String(kudaritakesec[nowsta+2] ?? "").padStart(2,"0"));
+        }
+    })
 }
 staname();
 function terminating(){ //終点到着時に次駅の表示を消す
@@ -82,8 +109,8 @@ terminating();
 
 const back = document.querySelector(".戻る");
 const next = document.querySelector(".停車");
-
-
+$(".行先 strong").text(stalist[terminatesta])
+nstaname();
 if (back) { // 戻るボタンを押したときの挙動まとめ
     back.addEventListener("click", function(){
         if (next.textContent!="次へ"&&next.textContent!="終了"){
@@ -104,7 +131,7 @@ if (back) { // 戻るボタンを押したときの挙動まとめ
 
 if (next) { //進むボタンを押したときの挙動まとめ
     next.addEventListener("click", function(){
-        if (nowsta === terminatesta&&next.textContent=="停車"){
+        if (nowsta == terminatesta&&next.textContent=="停車"){
             next.textContent="終了"
             $("#inputPanel").show()
         }
@@ -130,7 +157,9 @@ if (next) { //進むボタンを押したときの挙動まとめ
                     .done(function(){
                     nnowsta = nnowsta + 1 * direction;
                     nstaname();
-                    })               
+                    })
+                $("header .行先 strong").text(stalist[terminatesta])       
+                eachDate();        
             }
             else {
                 next.textContent = "次へ";
@@ -159,6 +188,28 @@ else if(restriction&&terminatesta>6&&direction==-1){
 else if(restriction&&startingsta<=6&&direction==-1){
     restriction.innerHTML = stalist[startingsta].slice(0,2)+"ー"+stalist[terminatesta].slice(0,2)+"&nbsp;<strong>120</strong> km/h"
 }
+function startDate(deptime){//Date型に変換
+    let [h, m, s] = (deptime).split(':')
+    if (s === undefined) s = '00'
+    let starttime = new Date();
+    starttime.setHours(h)
+    starttime.setMinutes(m)
+    starttime.setSeconds(s)
+    return starttime;
+}
+function eachDate(){
+    if (nowsta<startingsta){
+        currenttime.setSeconds(currenttime.getSeconds()+noboritakesec[nowsta-1])
+        currenttime.setMinutes(currenttime.getMinutes()+noboritakemin[nowsta-1])
+    }
+    else if (nowsta>startingsta){
+        currenttime.setSeconds(currenttime.getSeconds()+kudaritakesec[nowsta+1])
+        currenttime.setMinutes(currenttime.getMinutes()+kudaritakemin[nowsta+1])
+    }
+    $(".次駅停車時分").text(currenttime.getHours()+":"+currenttime.getMinutes())
+    $(".次駅停車秒").text(currenttime.getSeconds())
+}
+
 
 $(function(){
 
@@ -168,11 +219,11 @@ $(function(){
   // staListの内容をプルダウンに反映
   var $destination = $("#destination");
   $.each(staList, function(i, name){
-    $destination.append($("<option>").val(name).text(name));
+    $destination.append($("<option>").val(stalist.indexOf(name)).text(name));
   });
   var $passingstation = $("#passingStation");
   $.each(staList, function(i, name){
-    $passingstation.append($("<option>").val(name).text(name));
+    $passingstation.append($("<option>").val(stalist.indexOf(name)).text(name));
   });
 
   // 列車情報を格納する変数
@@ -184,12 +235,23 @@ $(function(){
   };
 
   $("#applyBtn").on("click", function(){
+    
     trainData.type            = $("#trainType").val();
     trainData.destination     = $("#destination").val();
     trainData.passingStation  = $("#passingStation").val();
     trainData.departureTime   = $("#departureTime").val();
+    terminatesta = trainData.destination;
+    startingsta=nowsta;
+    dept=trainData.departureTime;
+    currenttime=startDate(dept)
+    if(terminatesta>nowsta){direction=1}
+    else{direction=-1}
+    staname();
+    terminating();
+    $(".行先 strong").text(stalist[terminatesta])
     $("#inputPanel").hide()
+    
   });
-
-  
 });
+
+

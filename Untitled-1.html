@@ -11,14 +11,14 @@
 </head>
 <body>
     <div id="inputPanel">
-    <h2>乗務お疲れさまでした。</h2>
+    <h2>次はどこに行きましょう。</h2>
 
     <div class="field">
     <label for="trainType">種別</label>
-        <select id="trainType">
+        <select id="trainType" required>
         <option value="普通">普通</option>
         <option value="快速">快速</option>
-        <option value="快急">快急</option>
+        <option value="快急">快速急行</option>
         <option value="準急">準急</option>
         <option value="急行">急行</option>
         <option value="特急">特急</option>
@@ -26,8 +26,8 @@
     </div>
 
     <div class="field">
-        <label for="destination">終点</label>
-        <select id="destination"></select>
+        <label for="destination" >終点</label>
+        <select id="destination" required></select>
     </div>
 
     <div class="field">
@@ -37,10 +37,10 @@
 
     <div class="field">
         <label for="departureTime">始発駅発車時刻</label>
-        <input id="departureTime" type="time" step="1">
+        <input id="departureTime" type="time" step="15"value="11:45:14" required>
     </div>
 
-    <button id="applyBtn">オーバーレイに反映</button>
+    <button id="applyBtn">この行路で乗務する</button>
 
   
 </div>
@@ -81,23 +81,23 @@
     <aside>
         <div class="次々々々駅">
             <h3 class="プレビュー">木曽川</h3>
-            <h3 class="標準時分"><span>2</span> 15</h3>
+            <h3 class="標準時分"><span class="min">2</span> <span class="sec">15</span></h3>
         </div>
         <div class="次々々駅">
             <h3 class="プレビュー">尾張一宮</h3>
-            <h3 class="標準時分"><span>2</span> 15</h3>
+            <h3 class="標準時分"><span class="min">2</span> <span class="sec">15</span></h3>
         </div>
         <div class="次々駅">
             <h3 class="プレビュー">稲沢西</h3>
-            <h3 class="標準時分"><span>2</span> 30</h3>
+            <h3 class="標準時分"><span class="min">2</span> <span class="sec">15</span></h3>
         </div>
         <div class="次駅">
             <h3 class="プレビュー">稲沢</h3>
-            <h3 class="標準時分"><span>2</span> 45</h3>
+            <h3 class="標準時分"><span class="min">2</span> <span class="sec">15</span></h3>
         </div>
         <div class="前駅">
             <h3 class="プレビュー" style="margin-bottom:0px;color:hsla(0, 0%, 100%, 0.621);border: 1px solid #224ed1d5;">清洲</h3>
-            <h3 class="標準時分" style="margin-bottom:0px;color:hsla(0, 0%, 100%, 0.621);"><span>2</span> 45</h3>
+            <h3 class="標準時分" style="margin-bottom:0px;color:hsla(0, 0%, 100%, 0.621);"><span class="min">2</span> <span class="sec">45</span></h3>
         </div>
     </aside>
     <img src="https://github.com/Aethel-Kodama/CAS-SR/blob/main/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-09-08%20004535.png?raw=true" class="背景画像">
