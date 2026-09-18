@@ -27,10 +27,10 @@ const stalist = ["四城市","西四城","三城台二丁目","須津岡","府",
     let startingsta = 0;
     let nowsta = startingsta;
     let nnowsta = nowsta;
-    const noboritakemin = [1,1,1,1,1,1,1,1,2,10,10,10]
-    const noboritakesec = [45,55,55,55,10,15,25,55,0,0,0,0]
-    const kudaritakemin = [1,2,1,1,1,1,2,1,2,10,10,10]
-    const kudaritakesec = [40,0,10,10,10,55,10,25,15,0,0,0]
+    const kudaritakemin = [1,1,1,1,1,1,1,1,2,10,10,10]
+    const kudaritakesec = [45,55,55,55,10,15,25,55,0,0,0,0]
+    const noboritakemin = [2 ,1 ,2 ,1 ,1 ,1 ,1 ,2,1 ,10,10,10]
+    const noboritakesec = [15,25,10,55,10,10,10,0,40,0,0,0]//15,25,10,55,10,10,10,0,40,0,0,0
     let dept;
     let currenttime;
 
@@ -65,15 +65,15 @@ function nstaname(){
 
     $(function(){
         if (direction===-1){//上り
-        $(".前駅 .min").text(noboritakemin[nowsta+2]); $(".前駅 .sec").text(String(noboritakesec[nowsta+2] ?? "").padStart(2,"0"));
+        $(".前駅 .min").text(noboritakemin[nowsta+1]); $(".前駅 .sec").text(String(noboritakesec[nowsta+1] ?? "").padStart(2,"0"));
 
-        $(".次駅 .min").text(noboritakemin[nowsta+1]); $(".次駅 .sec").text(String(noboritakesec[nowsta+1] ?? "").padStart(2,"0"));
+        $(".次駅 .min").text(noboritakemin[nowsta]); $(".次駅 .sec").text(String(noboritakesec[nowsta] ?? "").padStart(2,"0"));
 
-        $(".次々駅 .min").text(noboritakemin[nowsta]); $(".次々駅 .sec").text(String(noboritakesec[nowsta] ?? "").padStart(2,"0"));
+        $(".次々駅 .min").text(noboritakemin[nowsta-1]); $(".次々駅 .sec").text(String(noboritakesec[nowsta-1] ?? "").padStart(2,"0"));
 
-        $(".次々々駅 .min").text(noboritakemin[nowsta-1]); $(".次々々駅 .sec").text(String(noboritakesec[nowsta-1] ?? "").padStart(2,"0"));
+        $(".次々々駅 .min").text(noboritakemin[nowsta-2]); $(".次々々駅 .sec").text(String(noboritakesec[nowsta-2] ?? "").padStart(2,"0"));
 
-        $(".次々々々駅 .min").text(noboritakemin[nowsta-2]); $(".次々々々駅 .sec").text(String(noboritakesec[nowsta-2] ?? "").padStart(2,"0"));
+        $(".次々々々駅 .min").text(noboritakemin[nowsta-3]); $(".次々々々駅 .sec").text(String(noboritakesec[nowsta-3] ?? "").padStart(2,"0"));
         }
         else if (direction===1){
             $(".前駅 .min").text(kudaritakemin[nowsta-2]); $(".前駅 .sec").text(String(kudaritakesec[nowsta-2] ?? "").padStart(2,"0"));
@@ -201,11 +201,11 @@ function startDate(deptime){//Date型に変換
     return starttime;
 }
 function eachDate(){
-    if (nowsta<startingsta){//下り
+    if (direction===-1&&startingsta!=nowsta){//上り
         currenttime.setSeconds(currenttime.getSeconds()+noboritakesec[nowsta])
         currenttime.setMinutes(currenttime.getMinutes()+noboritakemin[nowsta])
     }
-    else if (nowsta>startingsta){//上り
+    else if (direction===1&&startingsta!=nowsta){//下り
         currenttime.setSeconds(currenttime.getSeconds()+kudaritakesec[nowsta-1])
         currenttime.setMinutes(currenttime.getMinutes()+kudaritakemin[nowsta-1])
     }
@@ -213,11 +213,11 @@ function eachDate(){
     $(".次駅停車秒").text(String(currenttime.getSeconds()).padStart(2, "0"))
 }
 function meachDate(){
-    if (nowsta<startingsta){//下り
+    if (nowsta<startingsta){//上り
         currenttime.setSeconds(currenttime.getSeconds()-noboritakesec[nowsta])
         currenttime.setMinutes(currenttime.getMinutes()-noboritakemin[nowsta])
     }
-    else if (nowsta>startingsta){//上り
+    else if (nowsta>startingsta){//下り
         currenttime.setSeconds(currenttime.getSeconds()-kudaritakesec[nowsta])
         currenttime.setMinutes(currenttime.getMinutes()-kudaritakemin[nowsta])
     }
