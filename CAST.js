@@ -213,11 +213,11 @@ function eachDate(){
     $(".次駅停車秒").text(String(currenttime.getSeconds()).padStart(2, "0"))
 }
 function meachDate(){
-    if (nowsta<startingsta){//上り
-        currenttime.setSeconds(currenttime.getSeconds()-noboritakesec[nowsta])
-        currenttime.setMinutes(currenttime.getMinutes()-noboritakemin[nowsta])
+    if (direction==-1){//上り
+        currenttime.setSeconds(currenttime.getSeconds()-noboritakesec[nowsta-1])
+        currenttime.setMinutes(currenttime.getMinutes()-noboritakemin[nowsta-1])
     }
-    else if (nowsta>startingsta){//下り
+    else if (direction==1){//下り
         currenttime.setSeconds(currenttime.getSeconds()-kudaritakesec[nowsta])
         currenttime.setMinutes(currenttime.getMinutes()-kudaritakemin[nowsta])
     }
