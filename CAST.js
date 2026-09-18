@@ -22,9 +22,9 @@ const stalist = ["四城市","西四城","三城台二丁目","須津岡","府",
 
 //定義
     
-    let direction = 1; //SSR -> INZ:1,INZ -> SSR:-1
-    let terminatesta = 2;
-    let startingsta = 0;
+    let direction = -1; //SSR -> INZ:1,INZ -> SSR:-1
+    let terminatesta = 0;
+    let startingsta = 2;
     let nowsta = startingsta;
     let nnowsta = nowsta;
     const kudaritakemin = [1,1,1,1,1,1,1,1,2,10,10,10]
@@ -269,5 +269,5 @@ $(function(){
     eachDate();
   });
 });
-
+$("#inputPanel").hide()
 
