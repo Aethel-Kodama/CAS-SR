@@ -269,5 +269,5 @@ $(function(){
     eachDate();
   });
 });
-$("#inputPanel").hide()
+
 
