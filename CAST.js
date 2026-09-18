@@ -121,7 +121,8 @@ if (back) { // 戻るボタンを押したときの挙動まとめ
                 staname();
                 nstaname();
                 terminating();
-                minsec();
+                
+                meachDate();
             }
             if (next.textContent=="停車")
                 next.textContent="次へ";
@@ -201,12 +202,24 @@ function startDate(deptime){//Date型に変換
 }
 function eachDate(){
     if (nowsta<startingsta){//下り
-        currenttime.setSeconds(currenttime.getSeconds()+noboritakesec[nowsta-1])
-        currenttime.setMinutes(currenttime.getMinutes()+noboritakemin[nowsta-1])
+        currenttime.setSeconds(currenttime.getSeconds()+noboritakesec[nowsta])
+        currenttime.setMinutes(currenttime.getMinutes()+noboritakemin[nowsta])
     }
     else if (nowsta>startingsta){//上り
-        currenttime.setSeconds(currenttime.getSeconds()+kudaritakesec[nowsta+1])
-        currenttime.setMinutes(currenttime.getMinutes()+kudaritakemin[nowsta+1])
+        currenttime.setSeconds(currenttime.getSeconds()+kudaritakesec[nowsta-1])
+        currenttime.setMinutes(currenttime.getMinutes()+kudaritakemin[nowsta-1])
+    }
+    $(".次駅停車時分").text(currenttime.getHours()+":"+String(currenttime.getMinutes()).padStart(2, "0"))
+    $(".次駅停車秒").text(String(currenttime.getSeconds()).padStart(2, "0"))
+}
+function meachDate(){
+    if (nowsta<startingsta){//下り
+        currenttime.setSeconds(currenttime.getSeconds()-noboritakesec[nowsta])
+        currenttime.setMinutes(currenttime.getMinutes()-noboritakemin[nowsta])
+    }
+    else if (nowsta>startingsta){//上り
+        currenttime.setSeconds(currenttime.getSeconds()-kudaritakesec[nowsta])
+        currenttime.setMinutes(currenttime.getMinutes()-kudaritakemin[nowsta])
     }
     $(".次駅停車時分").text(currenttime.getHours()+":"+String(currenttime.getMinutes()).padStart(2, "0"))
     $(".次駅停車秒").text(String(currenttime.getSeconds()).padStart(2, "0"))
