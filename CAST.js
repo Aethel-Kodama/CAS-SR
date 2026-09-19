@@ -27,10 +27,11 @@ const stalist = ["四城市","西四城","三城台二丁目","須津岡","府",
     let startingsta = 2;
     let nowsta = startingsta;
     let nnowsta = nowsta;
-    const kudaritakemin = [1,1,1,1,1,1,1,1,2,10,10,10]
-    const kudaritakesec = [45,55,55,55,10,15,25,55,0,0,0,0]
-    const noboritakemin = [2 ,1 ,2 ,1 ,1 ,1 ,1 ,2,1 ,10,10,10]
-    const noboritakesec = [15,25,10,55,10,10,10,0,40,0,0,0]//15,25,10,55,10,10,10,0,40,0,0,0
+    const kudaritakemin = [1,1,1,1,1,1,1,1,2,8,8,8]
+    const kudaritakesec = [45,55,55,55,10,15,25,55,10,10,10,10]
+    const noboritakemin = [2 ,1 ,2 ,1 ,1 ,1 ,1 ,2,1 ,3 ,3 ,3]
+    const noboritakesec = [15,25,10,55,10,10,10,0,40,34,34,34]
+    let stoptime=[40,60,40,60,40, 40,60,40,40,60 ,40,60,40,40]//index0 = NSR,index13 = INZonsen;
     let dept;
     let currenttime;
 
@@ -108,13 +109,20 @@ function terminating(){ //終点到着時に次駅の表示を消す
 }
 terminating();
 
+function stop(){
+    if (nowsta!=startingsta){
+    currenttime.setSeconds(currenttime.getSeconds()+stoptime[nowsta-1])
+    $(".次駅停車時分").text(currenttime.getHours()+":"+String(currenttime.getMinutes()).padStart(2, "0"))
+    $(".次駅停車秒").text(String(currenttime.getSeconds()).padStart(2, "0"))
+    }
+}
 const back = document.querySelector(".戻る");
 const next = document.querySelector(".停車");
 $(".行先 strong").text(stalist[terminatesta])
 nstaname();
 if (back) { // 戻るボタンを押したときの挙動まとめ
     back.addEventListener("click", function(){
-        if (next.textContent!="次へ"&&next.textContent!="終了"){
+        if (next.textContent!="次へ"){
             if (nowsta > startingsta && direction==1 || nowsta < startingsta && direction == -1) {
                 nowsta = nowsta - 1 * direction;
                 nnowsta = nnowsta - 1*direction;
@@ -135,7 +143,7 @@ if (back) { // 戻るボタンを押したときの挙動まとめ
 if (next) { //進むボタンを押したときの挙動まとめ
     next.addEventListener("click", function(){
         if (nowsta == terminatesta&&next.textContent=="停車"){
-            next.textContent="終了"
+            
             $("#inputPanel").show()
         }
         if (nowsta != terminatesta) {
@@ -166,6 +174,7 @@ if (next) { //進むボタンを押したときの挙動まとめ
             }
             else {
                 next.textContent = "次へ";
+                stop();
             };
         };
     });
@@ -269,5 +278,6 @@ $(function(){
     eachDate();
   });
 });
+
 
 
