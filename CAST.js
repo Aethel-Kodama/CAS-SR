@@ -1,26 +1,4 @@
-﻿
-function nowtime(){
-    const date = new Date();
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
-    const nowhours = document.querySelector(".時刻 h3");
-    if (nowhours) {
-        nowhours.textContent = String(hours).padStart(2, "0") + ":" + String(minutes).padStart(2, "0");
-    }
-    const nowseconds = document.querySelector(".時刻 p");
-    if (nowseconds) {
-        nowseconds.textContent = String(seconds).padStart(2, "0");
-    }
-}
-//$(function(){$(".次駅 .sec").css("opacity","0")})
-//alert("幅:"+window.innerWidth+"px 高さ:"+window.innerHeight+"px")
-setInterval(nowtime,1000);
-nowtime();
-const stalist = ["四城市","西四城","三城台二丁目","須津岡","府","狩川橋","比良新町","片島","鐘山公園","稲生沢","双葉茶屋","稲生沢温泉","笠浜"];
-
-
-//定義
+﻿//定義
     
     let direction = -1; //SSR -> INZ:1,INZ -> SSR:-1
     let terminatesta = 0;
@@ -34,6 +12,86 @@ const stalist = ["四城市","西四城","三城台二丁目","須津岡","府",
     let stoptime=[40,60,40,60,40, 40,60,40,40,60 ,40,60,40,40]//index0 = NSR,index13 = INZonsen;
     let dept;
     let currenttime;
+    let delayMs;
+    let dh;
+    let dm;
+    let ds;
+function delay(dat){
+    const delays = document.querySelector(".発車まで")
+    if (currenttime){
+        if(currenttime>dat){
+            delayMs = currenttime-dat;
+            dh = Math.floor(delayMs / (60*60*1000));
+            dm = Math.floor((delayMs % (60*60*1000)) / 60000);
+            ds = Math.floor(((delayMs/1000)%60))
+            if(dh!=0){
+                delays.textContent="発車まで\u2007"+dh+" 時間 "+String(dm).padStart(2,"0")+" 分 "+String(ds).padStart(2,"0")+" 秒"
+            }
+            else if(dm!=0){
+                delays.textContent="発車まで\u2007"+String(dm).padStart(2,"0")+" 分 "+String(ds).padStart(2,"0")+" 秒";
+            }
+            else if(ds!=0){
+                delays.textContent="発車まで\u2007"+String(ds).padStart(2,"0")+" 秒";
+            }
+            else{
+                delays.textContent="定刻"
+            }
+        }
+        else{
+            delayMs = (currenttime-dat)*-1;
+            dh = Math.floor(delayMs / (60*60*1000));
+            dm = Math.floor((delayMs % (60*60*1000)) / 60000);
+            ds = Math.floor((((delayMs/1000)%60)/15)) * 15;
+            if(dh!=0){
+                delays.textContent=dh+" 時間 "+String(dm).padStart(2,"0")+" 分 "+String(ds).padStart(2,"0")+" 秒延";
+            }
+            else if(dm!=0){
+                delays.textContent=String(dm).padStart(2,"0")+" 分 "+String(ds).padStart(2,"0")+" 秒延";
+            }
+            else if(ds!=0){
+                delays.textContent=String(ds).padStart(2,"0")+" 秒延";
+            }
+            else{
+                delays.textContent="定刻"
+            }
+        }        
+    }
+}
+function view(){//停車中の表示
+    $(".次駅停車時分").css("left","130px")
+    $(".次駅停車秒").css("left","183px")
+    $(".発車まで").css("display","inline")
+    $(".次駅詳細 .停通").css("display","none")
+    $(".次駅詳細 .停通").css("display","none")
+}
+function unview(){
+    $(".次駅停車時分").css("left","0px")
+    $(".次駅停車秒").css("left","53px")
+    $(".発車まで").css("display","none")
+    $(".次駅詳細 .停通").css("display","inline")
+    $(".次駅詳細 .停通").css("display","inline")
+}
+function nowtime(){
+    const date = new Date();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    const nowhours = document.querySelector(".時刻 h3");
+    if (nowhours) {
+        nowhours.textContent = String(hours).padStart(2, "0") + ":" + String(minutes).padStart(2, "0");
+    }
+    const nowseconds = document.querySelector(".時刻 p");
+    if (nowseconds) {
+        nowseconds.textContent = String(seconds).padStart(2, "0");
+    }
+    delay(date);
+}
+//$(function(){$(".次駅 .sec").css("opacity","0")})
+//alert("幅:"+window.innerWidth+"px 高さ:"+window.innerHeight+"px")
+setInterval(nowtime,200);
+nowtime();
+const stalist = ["四城市","西四城","三城台二丁目","須津岡","府","狩川橋","比良新町","片島","鐘山公園","稲生沢","双葉茶屋","稲生沢温泉","笠浜"];
+
 
 
 const nnnsta = document.querySelector(".次々々駅詳細")
@@ -112,9 +170,9 @@ terminating();
 function stop(){
     if (nowsta!=startingsta){
     currenttime.setSeconds(currenttime.getSeconds()+stoptime[nowsta-1])
-    $(".次駅停車時分").text(currenttime.getHours()+":"+String(currenttime.getMinutes()).padStart(2, "0"))
-    $(".次駅停車秒").text(String(currenttime.getSeconds()).padStart(2, "0"))
     }
+    $(".次駅停車時分").text(String(currenttime.getHours()).padStart(2,"\u2007")+":"+String(currenttime.getMinutes()).padStart(2, "0"))
+    $(".次駅停車秒").text(String(currenttime.getSeconds()).padStart(2, "0")+"\u2007発")
 }
 const back = document.querySelector(".戻る");
 const next = document.querySelector(".停車");
@@ -155,9 +213,10 @@ if (next) { //進むボタンを押したときの挙動まとめ
                 
                 $(".次々々駅詳細 *").hide()
                 nowsta=nowsta+1*direction;
-                $(".次駅詳細 *").fadeIn()
+                $(".次駅詳細 *").not("発車まで").fadeIn()
                 $(".次々駅詳細 *").fadeIn()
                 $(".次々々駅詳細 *").fadeIn()
+                unview();
                 terminating();
                 next.textContent="停車";
                 staname();
@@ -175,6 +234,7 @@ if (next) { //進むボタンを押したときの挙動まとめ
             else {
                 next.textContent = "次へ";
                 stop();
+                view();
             };
         };
     });
@@ -204,9 +264,7 @@ function startDate(deptime){//Date型に変換
     let [h, m, s] = (deptime).split(':')
     if (s === undefined) s = '00'
     let starttime = new Date();
-    starttime.setHours(h)
-    starttime.setMinutes(m)
-    starttime.setSeconds(s)
+    starttime.setHours(h,m,s,0)
     return starttime;
 }
 function eachDate(){
@@ -218,8 +276,8 @@ function eachDate(){
         currenttime.setSeconds(currenttime.getSeconds()+kudaritakesec[nowsta-1])
         currenttime.setMinutes(currenttime.getMinutes()+kudaritakemin[nowsta-1])
     }
-    $(".次駅停車時分").text(currenttime.getHours()+":"+String(currenttime.getMinutes()).padStart(2, "0"))
-    $(".次駅停車秒").text(String(currenttime.getSeconds()).padStart(2, "0"))
+    $(".次駅停車時分").text(String(currenttime.getHours()).padStart(2,"\u2007")+":"+String(currenttime.getMinutes()).padStart(2, "0"))
+    $(".次駅停車秒").text(String(currenttime.getSeconds()).padStart(2, "0")+"\u2007着")
 }
 function meachDate(){
     if (direction==-1){//上り
@@ -230,7 +288,7 @@ function meachDate(){
         currenttime.setSeconds(currenttime.getSeconds()-kudaritakesec[nowsta])
         currenttime.setMinutes(currenttime.getMinutes()-kudaritakemin[nowsta])
     }
-    $(".次駅停車時分").text(currenttime.getHours()+":"+String(currenttime.getMinutes()).padStart(2, "0"))
+    $(".次駅停車時分").text(String(currenttime.getHours()).padStart(2,"\u2007")+":"+String(currenttime.getMinutes()).padStart(2, "0"))
     $(".次駅停車秒").text(String(currenttime.getSeconds()).padStart(2, "0"))
 }
 
@@ -264,7 +322,7 @@ $(function(){
     trainData.destination     = $("#destination").val();
     trainData.passingStation  = $("#passingStation").val();
     trainData.departureTime   = $("#departureTime").val();
-    terminatesta = trainData.destination;
+    terminatesta = Number(trainData.destination);
     startingsta=nowsta;
     dept=trainData.departureTime;
     currenttime=startDate(dept)
@@ -276,7 +334,10 @@ $(function(){
     $(".行先 strong").text(stalist[terminatesta])
     $("#inputPanel").hide()
     eachDate();
+    stop();
+    view();
   });
+
 });
 
 

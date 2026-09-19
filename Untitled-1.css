@@ -174,20 +174,29 @@ aside{
     left:130px;
     width: 4.6vw;
     height: 30px;
+    display: none;
 }
 .次駅停車時分{
     position: relative;
-    top: -50px;
+    top: -50px;    
     left: 0px;
+    left:130px;
     font-size: 19px;
     padding:0px 0px 0px 5px;
 }
 .次駅停車秒{
     position: relative;
-    top: -83px;
+    top: -87px;
     left: 53px;
+    left:183px;
     font-size: 15px;
     padding:0px 0px 0px 5px;
+}
+.発車まで{
+    position:relative;
+    top:-80px;
+    left:6px;
+    font-size: 13px;
 }
 .次駅詳細 .駅名{
     position: relative;
@@ -220,7 +229,7 @@ aside{
     background-color: #224ed1;
     padding: 2px;
     border-radius: 2px;
-    
+    display: none;
 }
 .次々駅詳細 .番線{
     position: relative;
