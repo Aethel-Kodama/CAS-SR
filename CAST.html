@@ -42,8 +42,22 @@ li {
     background-color:#2a2a2d;
     border-radius:3px;
 }
-
-menu{
+.停車{
+    user-select: none;
+    position:fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    bottom: 0px;
+    margin:0;
+    width: 100vw;
+    border-radius: 1vh;
+    right:10px;
+    z-index: 3;
+    background-color: #0167ff;
+}
+.menu{
     display:flex;
     background-color:rgb(36, 36, 36);
     justify-content:flex-start;
@@ -88,13 +102,15 @@ aside{
     margin-left:10px;
 }
 .プレビュー{
+    position: relative;
+    box-sizing: border-box;
     width: 17vh;
-    height: 7.4vh;
+    height: 8vh;
     border-color: #0167ff;
     border-width: 1px;
     border-style: groove;
     border-radius: 5px;
-    padding: 5px;
+    padding: 1.5vw;
     margin: 0vh;
 }
 .戻る{
@@ -109,21 +125,27 @@ aside{
     position:fixed; 
     height: 5vh;
     bottom: 1vh;
-    width: auto;
+    width: 20vw;
    right:10px;
    z-index: 3;
+   border-radius: 2px;
+}
+.sec{
+    white-space: nowrap;
+    margin: 0px;
+    padding: 0px 10px 0px 0px;
+    font-size:2vh;
 }
 .標準時分{
-    white-space: nowrap;
-    width: 20px;
-    margin: 0px;
-    padding: 5px 20px 5px 0px;
+    position:relative;
+    margin: 0;
+    height: 4vh;
+    width:8vw;
     border-right: 3px solid #75777c;
-    font-size:1.5vh;
 }
-.標準時分 span{
+.min{
     margin: 0px;
-    font-size:2vh;
+    font-size:3vh;
 }
 .次駅詳細{
     position: absolute;
@@ -155,7 +177,6 @@ aside{
 .次々々駅詳細{
     position: absolute;
     display: flex;
-    
     top: 40vh;
     left: 30vw;
     width: 54vw;
@@ -171,15 +192,15 @@ aside{
     position: relative;
     align-self: flex-start;
     text-align: center;
-    top: 0vh;
-    font-size: 3vh;
+    
+    font-size: 2.3vh;
     left:0vw;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 4vh;
-    height: 4vh;
+    width: 3vh;
+    height: 3vh;
     margin:0.8vh;
     padding: 0;
     border-radius: 5px;
@@ -187,30 +208,35 @@ aside{
 }
 
 .次駅停車時分{
+    display: flex;
     position: relative;
-    top: 0px;
-    left: 0px;
+    align-items: center;
+    justify-content: center;
     font-size: 3vh;
-    padding:0px 0px 0px 5px;
-    height: 4vh;
-    margin:0;
+    height: 6vh;
+    margin:0 0 0 5vw;
 }
 .次駅停車秒{
     position: relative;
-    top: 0vh;
+    align-items: center;
+    justify-content: center;
     left: 0;
     font-size: 2vh;
-    padding:0px 5vw 0px 1vw;
+    padding:2vh 5vw 0px 0vw;
     margin:0;
+    height: 4vh;
+}
+.発車まで{
+    position:relative;
+
 }
 .次駅詳細 .駅名{
     position: relative;
     align-self: flex-start;
-    top: 0px;
     font-size: 3.7vh;
     height:7vw;
-    width: 20vw;
     margin:0;
+    width:30vw;
 }
 .次々駅詳細 .駅名{
     position: relative;
@@ -294,7 +320,7 @@ div.時刻 p{
     width: 5vw;
     width:50px;}
 
-    </style>
+</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CAS-SR</title>
@@ -303,17 +329,16 @@ div.時刻 p{
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=M+PLUS+1p&family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    
     <header>
         <ul>
             <li class="運行" style="background-color:#040000;"><h3>2317F</h3></li>
-            <li class="運行"><h4>313</h4></li>
+            <li class="運行"><h4> 　313　</h4></li>
             <li class="両数">４</li>
             <li style="background-color:#040000; border-radius:10px;"class="制限">四城ー比良 <strong>120</strong> km/h
             <br>比良ー稲生 <strong>105</strong> km/h</li>
         </ul>
     </header>
-    <menu>
+    <div class="menu">
         <div class="通告1">
             
             <p>通告</p>
@@ -334,131 +359,301 @@ div.時刻 p{
             <h5>下本</h5>
             
         </div>
-    </menu>
+    </div>
     <header class="行先">
-        <h4><strong style="font-size:2vh;">豊橋</strong> 行き</h4>
+        <h4><strong style="font-size:130%;">豊橋</strong> 行き</h4>
     </header>
     <aside>
         <div class="次々々々駅">
             <h3 class="プレビュー">木曽川</h3>
-            <h3 class="標準時分"><span>2</span> 15</h3>
+            <h3 class="標準時分"><span class="min">2</span> <span class="sec">15</span></h3>
         </div>
         <div class="次々々駅">
             <h3 class="プレビュー">尾張一宮</h3>
-            <h3 class="標準時分"><span>2</span> 15</h3>
+            <h3 class="標準時分"><span class="min">2</span> <span class="sec">15</span></h3>
         </div>
         <div class="次々駅">
             <h3 class="プレビュー">稲沢西</h3>
-            <h3 class="標準時分"><span>2</span> 30</h3>
+            <h3 class="標準時分"><span class="min">2</span> <span class="sec">15</span></h3>
         </div>
         <div class="次駅">
             <h3 class="プレビュー">稲沢</h3>
-            <h3 class="標準時分"><span>2</span> 45</h3>
+            <h3 class="標準時分"><span class="min">2</span> <span class="sec">15</span></h3>
         </div>
         <div class="前駅">
             <h3 class="プレビュー" style="margin-bottom:0px;color:hsla(0, 0%, 100%, 0.621);border: 1px solid #224ed1d5;">清洲</h3>
-            <h3 class="標準時分" style="margin-bottom:0px;color:hsla(0, 0%, 100%, 0.621);"><span>2</span> 45</h3>
+            <h3 class="標準時分" style="margin-bottom:0px;color:hsla(0, 0%, 100%, 0.621);"><span class="min">2</span> <span class="sec">45</span></h3>
         </div>
     </aside>
     <img src="https://github.com/Aethel-Kodama/CAS-SR/blob/main/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-09-08%20004535.png?raw=true" class="背景画像">
     <div class="次々々駅詳細">
         <h2 class="駅名">稲沢西</h2>
         <h2 class="停通">停</h2>
-        <h2 class="番線">下1</h2>
+        <!--<h2 class="番線">下1</h2>-->
     </div>
     <div class="次々駅詳細">
         <h2 class="駅名">稲沢</h2>
         <h2 class="停通">停</h2>
-        <h2 class="番線">下1</h2>
+        <!--<h2 class="番線">下1</h2>-->
     </div>
     <div class="次駅詳細">
         <h2 class="駅名">清洲</h2>
-        <h2 class="停通">停</h2>
-        <h2 class="番線">下1</h2>
-        <h2 class="次駅停車時分">13.45<span class="次駅停車秒">03</span></h2>
+        <!--<h2 class="停通">停</h2>-->
+        <h2 class="次駅停車時分">13.45</h2><h2 class="次駅停車秒">03</h2>
+        <!--<h2 class="番線">下1</h2>-->
+        <h2 class="発車まで">30 秒延</h2>
     </div>
     <div class="時刻">
-        <h3>13:45 </h3><p>&nbsp;03</p>
+        <h3>13:45 </h3>
+        <p>&nbsp;03</p>
     </div>
+    
     <img src="https://github.com/Aethel-Kodama/CAS-SR/blob/main/%E6%88%BB%E3%82%8B.png?raw=true"class="戻る">
-    <img src="https://github.com/Aethel-Kodama/CAS-SR/blob/main/%E5%81%9C%E8%BB%8A.png?raw=true"class="停車">
+    <h3 class="停車">次へ</h3>
     <img src="https://github.com/Aethel-Kodama/CAS-SR/blob/main/%E5%9C%B0%E5%9B%B3.png?raw=true" class="地図画像">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</body>
 <script>
-    window.onload = function(){
-    const carnew = prompt("使用する編成を入力してください")
-    const car = document.querySelector(".運行 h4")
-    car.textContent=" "+carnew+" "}
+//定義
+    
+    let direction = -1; //SSR -> INZ:1,INZ -> SSR:-1
+    let terminatesta = 0;
+    let startingsta = 2;
+    let nowsta = startingsta;
+    let nnowsta = nowsta;
+    const kudaritakemin = [1,1,1,1,1,1,1,1,2,8,8,8]
+    const kudaritakesec = [45,55,55,55,10,15,25,55,10,10,10,10]
+    const noboritakemin = [2 ,1 ,2 ,1 ,1 ,1 ,1 ,2,1 ,3 ,3 ,3]
+    const noboritakesec = [15,25,10,55,10,10,10,0,40,34,34,34]
+    let stoptime=[40,60,40,60,40, 40,60,40,40,60 ,40,60,40,40]//index0 = NSR,index13 = INZonsen;
+    let dept;
+    let currenttime;
+    let delayMs;
+    let dh;
+    let dm;
+    let ds;
+function delay(dat){
+    const delays = document.querySelector(".発車まで")
+    if (currenttime){
+        if(currenttime>dat){
+            delayMs = currenttime-dat;
+            dh = Math.floor(delayMs / (60*60*1000));
+            dm = Math.floor((delayMs % (60*60*1000)) / 60000);
+            ds = Math.floor(((delayMs/1000)%60))
+            if(dh!=0){
+                delays.textContent="発車まで\u2007"+dh+" 時間 "+String(dm).padStart(2,"0")+" 分 "+String(ds).padStart(2,"0")+" 秒"
+            }
+            else if(dm!=0){
+                delays.textContent="発車まで\u2007"+String(dm).padStart(2,"0")+" 分 "+String(ds).padStart(2,"0")+" 秒";
+            }
+            else if(ds!=0){
+                delays.textContent="発車まで\u2007"+String(ds).padStart(2,"0")+" 秒";
+            }
+            else{
+                delays.textContent="定刻"
+            }
+        }
+        else{
+            delayMs = (currenttime-dat)*-1;
+            dh = Math.floor(delayMs / (60*60*1000));
+            dm = Math.floor((delayMs % (60*60*1000)) / 60000);
+            ds = Math.floor((((delayMs/1000)%60)/15)) * 15;
+            if(dh!=0){
+                delays.textContent=dh+" 時間 "+String(dm).padStart(2,"0")+" 分 "+String(ds).padStart(2,"0")+" 秒延";
+            }
+            else if(dm!=0){
+                delays.textContent=String(dm).padStart(2,"0")+" 分 "+String(ds).padStart(2,"0")+" 秒延";
+            }
+            else if(ds!=0){
+                delays.textContent=String(ds).padStart(2,"0")+" 秒延";
+            }
+            else{
+                delays.textContent="定刻"
+            }
+        }        
+    }
+}
+function view(){//停車中の表示
+    //$(".次駅停車時分").css("left","130px")
+    //$(".次駅停車秒").css("left","183px")
+    $(".発車まで").css("display","inline")
+    $(".次駅詳細 .停通").css("display","none")
+    $(".次駅詳細 .駅名").css("width","30vw")
+}
+function unview(){
+    //$(".次駅停車時分").css("left","0px")
+    //$(".次駅停車秒").css("left","53px")
+    $(".発車まで").css("display","none")
+    $(".次駅詳細 .停通").css("display","inline")
+}
 function nowtime(){
     const date = new Date();
     const hours = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
-    console.log(`現在の時刻は ${hours} 時 ${minutes} 分 ${seconds} 秒です。`);
     const nowhours = document.querySelector(".時刻 h3");
-    nowhours.textContent=String(hours).padStart(2,"0")+":"+String(minutes).padStart(2,"0");
+    if (nowhours) {
+        nowhours.textContent = String(hours).padStart(2, "0") + ":" + String(minutes).padStart(2, "0");
+    }
     const nowseconds = document.querySelector(".時刻 p");
-    nowseconds.textContent=String(seconds).padStart(2,"0");
+    if (nowseconds) {
+        nowseconds.textContent = String(seconds).padStart(2, "0");
+    }
+    delay(date);
 }
+//$(function(){$(".次駅 .sec").css("opacity","0")})
 //alert("幅:"+window.innerWidth+"px 高さ:"+window.innerHeight+"px")
-setInterval(nowtime,1000);
+setInterval(nowtime,200);
 nowtime();
 const stalist = ["四城市","西四城","三城台二丁目","須津岡","府","狩川橋","比良新町","片島","鐘山公園","稲生沢","双葉茶屋","稲生沢温泉","笠浜"];
-//定義
-    
-    let direction = -1; //SSR -> INZ:1,INZ -> SSR:-1
-    let terminatesta = 7;
-    let startingsta = 9;
-    let nowsta = startingsta;
+
+
 
 const nnnsta = document.querySelector(".次々々駅詳細")
 const nnsta = document.querySelector(".次々駅詳細")
 function staname(){
-let nownextsta = document.querySelector(".次駅詳細 .駅名");
-nownextsta.textContent=stalist[nowsta]
-let nownextnextsta = document.querySelector(".次々駅詳細 .駅名")
-nownextnextsta.textContent=stalist[nowsta+1*direction]
-let nownextnextnextsta = document.querySelector(".次々々駅詳細 .駅名")
-nownextnextnextsta.textContent=stalist[nowsta+2*direction]
-let preview0 = document.querySelector(".前駅 .プレビュー")
-preview0.textContent = stalist[nowsta-1*direction]
-let preview1 = document.querySelector(".次駅 .プレビュー")
-preview1.textContent = stalist[nowsta]
-let preview2 = document.querySelector(".次々駅 .プレビュー")
-preview2.textContent = stalist[nowsta+1*direction]
-let preview3 = document.querySelector(".次々々駅 .プレビュー")
-preview3.textContent = stalist[nowsta+2*direction]
-let preview4 = document.querySelector(".次々々々駅 .プレビュー")
-preview4.textContent = stalist[nowsta+3*direction]
+    const nownextsta = document.querySelector(".次駅詳細 .駅名");
+    if (nownextsta) nownextsta.textContent = stalist[nowsta];
+
+    const nownextnextsta = document.querySelector(".次々駅詳細 .駅名");
+    if (nownextnextsta) nownextnextsta.textContent = stalist[nowsta + 1 * direction];
+
+    const nownextnextnextsta = document.querySelector(".次々々駅詳細 .駅名");
+    if (nownextnextnextsta) nownextnextnextsta.textContent = stalist[nowsta + 2 * direction];
 }
+function nstaname(){
+    const preview0 = document.querySelector(".前駅 .プレビュー");
+    if (preview0) preview0.textContent = stalist[nnowsta - 1 * direction];
+
+    const preview1 = document.querySelector(".次駅 .プレビュー");
+    if (preview1) preview1.textContent = stalist[nnowsta];
+
+    const preview2 = document.querySelector(".次々駅 .プレビュー");
+    if (preview2) preview2.textContent = stalist[nnowsta + 1 * direction];
+
+    const preview3 = document.querySelector(".次々々駅 .プレビュー");
+    if (preview3) preview3.textContent = stalist[nnowsta + 2 * direction];
+
+    const preview4 = document.querySelector(".次々々々駅 .プレビュー");
+    if (preview4) preview4.textContent = stalist[nnowsta + 3 * direction];
+
+    $(function(){
+        if (direction===-1){//上り
+        $(".前駅 .min").text(noboritakemin[nowsta+1]); $(".前駅 .sec").text(String(noboritakesec[nowsta+1] ?? "").padStart(2,"0"));
+
+        $(".次駅 .min").text(noboritakemin[nowsta]); $(".次駅 .sec").text(String(noboritakesec[nowsta] ?? "").padStart(2,"0"));
+
+        $(".次々駅 .min").text(noboritakemin[nowsta-1]); $(".次々駅 .sec").text(String(noboritakesec[nowsta-1] ?? "").padStart(2,"0"));
+
+        $(".次々々駅 .min").text(noboritakemin[nowsta-2]); $(".次々々駅 .sec").text(String(noboritakesec[nowsta-2] ?? "").padStart(2,"0"));
+
+        $(".次々々々駅 .min").text(noboritakemin[nowsta-3]); $(".次々々々駅 .sec").text(String(noboritakesec[nowsta-3] ?? "").padStart(2,"0"));
+        }
+        else if (direction===1){
+            $(".前駅 .min").text(kudaritakemin[nowsta-2]); $(".前駅 .sec").text(String(kudaritakesec[nowsta-2] ?? "").padStart(2,"0"));
+
+            $(".次駅 .min").text(kudaritakemin[nowsta-1]); $(".次駅 .sec").text(String(kudaritakesec[nowsta-1] ?? "").padStart(2,"0"));
+
+            $(".次々駅 .min").text(kudaritakemin[nowsta]); $(".次々駅 .sec").text(String(kudaritakesec[nowsta] ?? "").padStart(2,"0"));
+
+            $(".次々々駅 .min").text(kudaritakemin[nowsta+1]); $(".次々々駅 .sec").text(String(kudaritakesec[nowsta+1] ?? "").padStart(2,"0"));
+
+            $(".次々々々駅 .min").text(kudaritakemin[nowsta+2]); $(".次々々々駅 .sec").text(String(kudaritakesec[nowsta+2] ?? "").padStart(2,"0"));
+        }
+    })
+}
+
 staname();
-function terminating(){
-    
-    if (nowsta+2>terminatesta&&direction==1||nowsta-2<terminatesta&&direction==-1){
-        nnnsta.style.opacity = 0;
+function terminating(){ //終点到着時に次駅の表示を消す
+    if (nnnsta) {
+        if (nowsta + 2 > terminatesta && direction == 1 || nowsta - 2 < terminatesta && direction == -1) {
+            nnnsta.style.opacity = 0;
+        } else {
+            nnnsta.style.opacity = 1;
+        }
     }
-    else {nnnsta.style.opacity = 1;};
-    
-    if (nowsta+1>terminatesta&&direction==1||nowsta-1<terminatesta&&direction==-1){
-        nnsta.style.opacity = 0;
+    if (nnsta) {
+        if (nowsta + 1 > terminatesta && direction == 1 || nowsta - 1 < terminatesta && direction == -1) {
+            nnsta.style.opacity = 0;
+        } else {
+            nnsta.style.opacity = 1;
+        }
     }
-    else {nnsta.style.opacity=1;}
 }
 terminating();
 
+function stop(){
+    if (nowsta!=startingsta){
+    currenttime.setSeconds(currenttime.getSeconds()+stoptime[nowsta-1])
+    }
+    $(".次駅停車時分").text(String(currenttime.getHours()).padStart(2,"\u2007")+":"+String(currenttime.getMinutes()).padStart(2, "0"))
+    $(".次駅停車秒").text(String(currenttime.getSeconds()).padStart(2, "0")+"\u2007発")
+}
 const back = document.querySelector(".戻る");
-back.addEventListener("click",function(){
-    if (nowsta > startingsta && direction || nowsta < startingsta&&direction==-1){
-    nowsta = nowsta-1*direction;
-    staname();
-    terminating();}
-})
-const next = document.querySelector(".停車")
-next.addEventListener("click",function(){
-    if (nowsta!=terminatesta)
-    nowsta = nowsta+1*direction
-    staname();
-    terminating();
-})
+const next = document.querySelector(".停車");
+$(".行先 strong").text(stalist[terminatesta])
+nstaname();
+if (back) { // 戻るボタンを押したときの挙動まとめ
+    back.addEventListener("click", function(){
+        if (next.textContent!="次へ"){
+            if (nowsta > startingsta && direction==1 || nowsta < startingsta && direction == -1) {
+                nowsta = nowsta - 1 * direction;
+                nnowsta = nnowsta - 1*direction;
+                staname();
+                nstaname();
+                terminating();
+                
+                meachDate();
+            }
+            if (next.textContent=="停車")
+                next.textContent="次へ";
+        }
+        else if (next.textContent=="次へ"){next.textContent="停車";}
+        
+    });
+}
+
+if (next) { //進むボタンを押したときの挙動まとめ
+    next.addEventListener("click", function(){
+        if (nowsta == terminatesta&&next.textContent=="停車"){
+            
+            $("#inputPanel").show()
+        }
+        if (nowsta != terminatesta) {
+            if (next.textContent === "次へ"){
+                
+                $(".次駅詳細 *").hide()
+                
+                $(".次々駅詳細 *").hide()
+                
+                $(".次々々駅詳細 *").hide()
+                nowsta=nowsta+1*direction;
+                $(".次駅詳細 *").not(".発車まで").fadeIn()
+                $(".次々駅詳細 *").fadeIn()
+                $(".次々々駅詳細 *").fadeIn()
+                unview();
+                terminating();
+                next.textContent="停車";
+                staname();
+                $(".プレビュー,.標準時分")
+                    .animate({top:"+=12vh"},700)
+                    .animate({top:"-=12vh"},0)
+                    .promise()
+                    .done(function(){
+                    nnowsta = nnowsta + 1 * direction;
+                    nstaname();
+                    })
+                $("header .行先 strong").text(stalist[terminatesta])       
+                eachDate();        
+            }
+            else {
+                next.textContent = "次へ";
+                stop();
+                view();
+            };
+        };
+    });
+};
 const trainCount = document.querySelector(".両数");
 if (trainCount) trainCount.textContent = "２";
 
@@ -480,6 +675,39 @@ else if(restriction&&terminatesta>6&&direction==-1){
 else if(restriction&&startingsta<=6&&direction==-1){
     restriction.innerHTML = stalist[startingsta].slice(0,2)+"ー"+stalist[terminatesta].slice(0,2)+"&nbsp;<strong>120</strong> km/h"
 }
+function startDate(deptime){//Date型に変換
+    let [h, m, s] = (deptime).split(':')
+    if (s === undefined) s = '00'
+    let starttime = new Date();
+    starttime.setHours(h,m,s,0)
+    return starttime;
+}
+function eachDate(){
+    if (direction===-1&&startingsta!=nowsta){//上り
+        currenttime.setSeconds(currenttime.getSeconds()+noboritakesec[nowsta])
+        currenttime.setMinutes(currenttime.getMinutes()+noboritakemin[nowsta])
+    }
+    else if (direction===1&&startingsta!=nowsta){//下り
+        currenttime.setSeconds(currenttime.getSeconds()+kudaritakesec[nowsta-1])
+        currenttime.setMinutes(currenttime.getMinutes()+kudaritakemin[nowsta-1])
+    }
+    $(".次駅停車時分").text(String(currenttime.getHours()).padStart(2,"\u2007")+":"+String(currenttime.getMinutes()).padStart(2, "0"))
+    $(".次駅停車秒").text(String(currenttime.getSeconds()).padStart(2, "0")+"\u2007着")
+}
+function meachDate(){
+    if (direction==-1){//上り
+        currenttime.setSeconds(currenttime.getSeconds()-noboritakesec[nowsta-1])
+        currenttime.setMinutes(currenttime.getMinutes()-noboritakemin[nowsta-1])
+    }
+    else if (direction==1){//下り
+        currenttime.setSeconds(currenttime.getSeconds()-kudaritakesec[nowsta])
+        currenttime.setMinutes(currenttime.getMinutes()-kudaritakemin[nowsta])
+    }
+    $(".次駅停車時分").text(String(currenttime.getHours()).padStart(2,"\u2007")+":"+String(currenttime.getMinutes()).padStart(2, "0"))
+    $(".次駅停車秒").text(String(currenttime.getSeconds()).padStart(2, "0"))
+}
+
+
 </script>
 </body>
 </html>

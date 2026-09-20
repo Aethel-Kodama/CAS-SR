@@ -62,14 +62,14 @@ function view(){//停車中の表示
     $(".次駅停車秒").css("left","183px")
     $(".発車まで").css("display","inline")
     $(".次駅詳細 .停通").css("display","none")
-    $(".次駅詳細 .停通").css("display","none")
+    
 }
 function unview(){
     $(".次駅停車時分").css("left","0px")
     $(".次駅停車秒").css("left","53px")
     $(".発車まで").css("display","none")
     $(".次駅詳細 .停通").css("display","inline")
-    $(".次駅詳細 .停通").css("display","inline")
+    
 }
 function nowtime(){
     const date = new Date();
@@ -213,7 +213,7 @@ if (next) { //進むボタンを押したときの挙動まとめ
                 
                 $(".次々々駅詳細 *").hide()
                 nowsta=nowsta+1*direction;
-                $(".次駅詳細 *").not("発車まで").fadeIn()
+                $(".次駅詳細 *").not(".発車まで").fadeIn()
                 $(".次々駅詳細 *").fadeIn()
                 $(".次々々駅詳細 *").fadeIn()
                 unview();
@@ -337,7 +337,6 @@ $(function(){
     stop();
     view();
   });
-
 });
 
 
