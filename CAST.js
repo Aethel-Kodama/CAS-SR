@@ -9,7 +9,7 @@
     const kudaritakesec = [45,55,55,55,10,15,25,55,10,10,10,10]
     const noboritakemin = [2 ,1 ,2 ,1 ,1 ,1 ,1 ,2,1 ,3 ,3 ,3]
     const noboritakesec = [15,25,10,55,10,10,10,0,40,34,34,34]
-    let stoptime=[40,60,40,60,40, 40,60,40,40,60 ,40,60,40,40]//index0 = NSR,index13 = INZonsen;
+    let stoptime=[15,30,15,30,15, 15,30,15,30,15 ,15,30]//index0 = NSR,index13 = INZonsen;
     let dept;
     let currenttime;
     let delayMs;
@@ -23,7 +23,7 @@ function delay(dat){
             delayMs = currenttime-dat;
             dh = Math.floor(delayMs / (60*60*1000));
             dm = Math.floor((delayMs % (60*60*1000)) / 60000);
-            ds = Math.floor(((delayMs/1000)%60))
+            ds = Math.floor(((delayMs/1000)%60))+1
             if(dh!=0){
                 delays.textContent="発車まで\u2007"+dh+" 時間 "+String(dm).padStart(2,"0")+" 分 "+String(ds).padStart(2,"0")+" 秒"
             }
@@ -41,7 +41,7 @@ function delay(dat){
             delayMs = (currenttime-dat)*-1;
             dh = Math.floor(delayMs / (60*60*1000));
             dm = Math.floor((delayMs % (60*60*1000)) / 60000);
-            ds = Math.floor((((delayMs/1000)%60)/15)) * 15;
+            ds = (Math.floor((((delayMs/1000)%60)/15)) * 15);
             if(dh!=0){
                 delays.textContent=dh+" 時間 "+String(dm).padStart(2,"0")+" 分 "+String(ds).padStart(2,"0")+" 秒延";
             }
@@ -62,14 +62,12 @@ function view(){//停車中の表示
     $(".次駅停車秒").css("left","183px")
     $(".発車まで").css("display","inline")
     $(".次駅詳細 .停通").css("display","none")
-    
 }
 function unview(){
     $(".次駅停車時分").css("left","0px")
     $(".次駅停車秒").css("left","53px")
     $(".発車まで").css("display","none")
     $(".次駅詳細 .停通").css("display","inline")
-    
 }
 function nowtime(){
     const date = new Date();
@@ -149,22 +147,37 @@ function nstaname(){
 }
 
 staname();
+const nnnnpreview = document.querySelector(".次々々々駅");
+const nnnpreview = document.querySelector(".次々々駅");
+const nnpreview = document.querySelector(".次々駅");
 function terminating(){ //終点到着時に次駅の表示を消す
-    if (nnnsta) {
+    if (nnnnpreview) {
+        if (nowsta + 3 > terminatesta && direction == 1 || nowsta - 3 < terminatesta && direction == -1) {
+           nnnnpreview.style.opacity = 0;
+        } else {
+            nnnnpreview.style.opacity = 1;
+        }
+    }
+    if (nnnsta||nnnpreview) {
         if (nowsta + 2 > terminatesta && direction == 1 || nowsta - 2 < terminatesta && direction == -1) {
             nnnsta.style.opacity = 0;
+            nnnpreview.style.opacity = 0;
         } else {
             nnnsta.style.opacity = 1;
+            nnnpreview.style.opacity = 1;
         }
     }
     if (nnsta) {
         if (nowsta + 1 > terminatesta && direction == 1 || nowsta - 1 < terminatesta && direction == -1) {
             nnsta.style.opacity = 0;
+            nnpreview.style.opacity = 0;
         } else {
             nnsta.style.opacity = 1;
+            nnpreview.style.opacity = 1;
         }
     }
 }
+
 terminating();
 
 function stop(){

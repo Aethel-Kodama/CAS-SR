@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>test</title>
+        <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            @charset "UTF-8";
+            .deptim::-webkit-calendar-picker-indicator {
+                display: none;
+            }
+            *{
+                box-sizing: border-box
+            }
+            select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            }
+            select, body {
+            font-family: kozuka-mincho-pr6n, serif;
+            font-style: normal;
+            font-weight: 500;
+            }
+
+            #inputPanel{
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
+            }
+            .container{
+                display: flex;
+                background-color: #000000;
+                justify-content: space-evenly;
+                height: 10vh;
+            }
+            .種別,
+            .行先{
+                min-width: 6em;
+                text-align: center;
+                background-color: black;
+                color:#00FF00;
+                border:none;
+                outline: none;
+                appearance: none;
+                font-size:5vw;
+            }
+            .種別{
+                color:white;
+                min-width: 4em;
+            }
+            .deptim{
+                font-size:5vw;
+                background-color: #000000;
+                color:#00FF00;
+                position: relative;
+                z-index: 1;
+                border:none;
+                outline: none;
+                appearance: none;
+            }
+            .consist{
+                display: flex;
+                font-size:30px;
+                background-color: #000000;
+                color:#00FF00;
+                position: relative;
+                z-index: 1;
+                border:none;
+                outline: none;
+                appearance: none;
+                align-items: center;
+            }
+            header{
+                background-color: #30221F;
+                display: flex;
+                align-items: center;      
+                gap: 2vw;
+                font-family: "ヒラギノ角ゴ Pro W3";
+            }
+            .bansen{
+                display:flex;
+                flex: none;
+                justify-content: center;
+                align-items: center;
+                font-size: 5vw;
+                border: 1px solid;
+                width:8vw;
+                height: 8vw;
+                
+                margin:1vw;
+                border-radius: 7px;
+            }
+            .bansen,.info{
+                display:inline-flex;
+                font-weight:bolder;
+                color: #FFFFFF;
+            }
+            .info{
+                flex-direction: column;
+                margin-left:20vw;
+            }
+            .info span{
+                margin:0;
+                text-align:left;
+            }
+            .en{
+                font-size:2vw;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="inputPanel">
+            <header>
+                <div class="bansen">
+                    <span>1</span>
+                </div>
+                <div class="info">
+                    <span>発車ご案内</span>
+                    <span class="en">Train Departures</span>
+                </div>
+            </header>
+            <div class="container">
+                <select class="種別">
+                    <option>普通</option>
+                    <option>準急</option>
+                    <option>快速</option>
+                    <option>急行</option>
+                    <option>快速急行</option>
+                    <option>特急</option>
+                    <option>回送</option>
+                </select>
+                <input type="time" class="deptim" step="1">
+                <select class="行先">
+                    <option></option>
+                </select>
+                <div class="consist">
+                    <span>4両</span>
+                </div>
+            </div>
+            <span>この列車は、各駅に停車します。</span>
+        </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        const typelist=["回送","普通","準急","快速","急行","快速急行","特急"]
+        const stalist = ["四城市","西四城","三城台二丁目","須津岡","府","狩川橋","比良新町","片島","鐘山公園","稲生沢","双葉茶屋","稲生沢温泉","笠浜"];
+        $.each(stalist,function(i,name){
+            $(".行先").append($("<option>").val(i).text(name)
+        )})
+        const typecolor = {
+        "回送":"#ffffff",
+        "普通": "#00FF00",
+        "準急": "rgb(250, 187, 0)",
+        "快速": "rgb(250, 187, 0)",
+        "急行": "rgb(255, 0, 0)",
+        "快速急行": "rgb(250, 187, 0)",
+        "特急": "rgb(255, 0, 0)"
+};
+
+    function updateTypeColor() {
+    const $s = $(".種別");
+    $s.css("color", typecolor[$s.val()] || "white");
+    $s.find("option").each(function(){
+        $(this).css("color",typecolor[$(this).val()] || "#74F327")
+    })}
+    $(".種別").on("change", updateTypeColor);
+    updateTypeColor(); // 初期表示
+    </script>
+    </body>
+</html>
