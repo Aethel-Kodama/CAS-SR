@@ -158,7 +158,7 @@ function terminating(){ //終点到着時に次駅の表示を消す
             nnnnpreview.style.opacity = 1;
         }
     }
-    if (nnnsta||nnnpreview) {
+    if (nnnsta&&nnnpreview) {
         if (nowsta + 2 > terminatesta && direction == 1 || nowsta - 2 < terminatesta && direction == -1) {
             nnnsta.style.opacity = 0;
             nnnpreview.style.opacity = 0;
@@ -167,7 +167,7 @@ function terminating(){ //終点到着時に次駅の表示を消す
             nnnpreview.style.opacity = 1;
         }
     }
-    if (nnsta) {
+    if (nnsta&&nnpreview) {
         if (nowsta + 1 > terminatesta && direction == 1 || nowsta - 1 < terminatesta && direction == -1) {
             nnsta.style.opacity = 0;
             nnpreview.style.opacity = 0;
@@ -182,10 +182,35 @@ terminating();
 
 function stop(){
     if (nowsta!=startingsta){
-    currenttime.setSeconds(currenttime.getSeconds()+stoptime[nowsta-1])
+    currenttime.setSeconds(currenttime.getSeconds()+stoptime[nowsta-1*direction])
     }
     $(".次駅停車時分").text(String(currenttime.getHours()).padStart(2,"\u2007")+":"+String(currenttime.getMinutes()).padStart(2, "0"))
     $(".次駅停車秒").text(String(currenttime.getSeconds()).padStart(2, "0")+"\u2007発")
+}
+function mstop(){
+    if (nowsta!=startingsta){
+    currenttime.setSeconds(currenttime.getSeconds()-stoptime[nowsta-1*direction])
+    }
+    $(".次駅停車時分").text(String(currenttime.getHours()).padStart(2,"\u2007")+":"+String(currenttime.getMinutes()).padStart(2, "0"))
+    $(".次駅停車秒").text(String(currenttime.getSeconds()).padStart(2, "0")+"\u2007着")
+}
+function formatTime(date){
+    return [
+        String(date.getHours()).padStart(2, "0"),
+        String(date.getMinutes()).padStart(2, "0"),
+        String(date.getSeconds()).padStart(2, "0")
+    ].join(":");
+}
+function setNextDepartureTime(){
+    const departureTime2 = document.getElementById("departureTime");
+    if (!departureTime2 || departureTime2.value.trim() === "11:45:14") {
+        return;
+    }
+
+    const nextDeparture = currenttime
+        ? new Date(currenttime.getTime() + 300000)
+        : new Date(Date.now() + 300000);
+    departureTime2.value = formatTime(nextDeparture);
 }
 const back = document.querySelector(".戻る");
 const next = document.querySelector(".停車");
@@ -204,8 +229,12 @@ if (back) { // 戻るボタンを押したときの挙動まとめ
             }
             if (next.textContent=="停車")
                 next.textContent="次へ";
+                
         }
-        else if (next.textContent=="次へ"){next.textContent="停車";}
+        else if (next.textContent=="次へ"){next.textContent="停車";
+            mstop();
+            unview();
+        }
         
     });
 }
@@ -213,8 +242,10 @@ if (back) { // 戻るボタンを押したときの挙動まとめ
 if (next) { //進むボタンを押したときの挙動まとめ
     next.addEventListener("click", function(){
         if (nowsta == terminatesta&&next.textContent=="停車"){
-            
-            $("#inputPanel").show()
+            setNextDepartureTime();
+            $("#inputPanel").show();
+            $("#startingstation").val(nowsta);
+
         }
         if (nowsta != terminatesta) {
             if (next.textContent === "次へ"){
@@ -319,7 +350,7 @@ $(function(){
   $.each(staList, function(i, name){
     $startingstation.append($("<option>").val(stalist.indexOf(name)).text(name));
   });
-
+  $("#startingstation").val(nowsta);
   // 列車情報を格納する変数
   var trainData = {
     type: "",
@@ -329,16 +360,17 @@ $(function(){
   };
 
   $("#applyBtn").on("click", function(){
-    if($("#departureTime").val().trim()!=="11:45:14"){
-        document.getElementById("departureTime").value = currenttime + 300000;
+    if (!$("#departureTime").val().trim()) {
+        setNextDepartureTime();
     }
     trainData.type            = $("#trainType").val();
     trainData.destination     = $("#destination").val();
     trainData.startingstation  = $("#startingstation").val();
     trainData.departureTime   = $("#departureTime").val();
     terminatesta = Number(trainData.destination);
-    startingsta=nowsta;
+    startingsta=Number(trainData.startingstation);
     dept=trainData.departureTime;
+    nowsta = startingsta;
     currenttime=startDate(dept)
     if(terminatesta>nowsta){direction=1}
     else{direction=-1}
@@ -352,6 +384,3 @@ $(function(){
     view();
   });
 });
-
-
-
