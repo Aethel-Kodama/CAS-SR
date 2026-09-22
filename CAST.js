@@ -5,7 +5,7 @@
     let startingsta = 2;
     let nowsta = startingsta;
     let nnowsta = nowsta;
-    const kudaritakemin = [1,1,1,1,1,1,1,1,2,8,8,8]
+    const kudaritakemin = [1,1,1,1,1,1,1,1,2,8,8,8]//index0->SSR-NSR
     const kudaritakesec = [45,55,55,55,10,15,25,55,10,10,10,10]
     const noboritakemin = [2 ,1 ,2 ,1 ,1 ,1 ,1 ,2,1 ,3 ,3 ,3]
     const noboritakesec = [15,25,10,55,10,10,10,0,40,34,34,34]
@@ -208,8 +208,8 @@ function setNextDepartureTime(){
     }
 
     const nextDeparture = currenttime
-        ? new Date(currenttime.getTime() + 300000)
-        : new Date(Date.now() + 300000);
+        ? new Date(currenttime.getTime() + 120000)
+        : new Date(Date.now() + 120000);
     departureTime2.value = formatTime(nextDeparture);
 }
 const back = document.querySelector(".戻る");
@@ -335,7 +335,39 @@ function meachDate(){
     $(".次駅停車秒").text(String(currenttime.getSeconds()).padStart(2, "0"))
 }
 
-
+function terminatearr(starttime,startsta,termsta){
+    let timearr = new Date;
+    let timetoarrm = 0;
+    let timetoarrs = 0;
+    for (let i = 0; i < Math.abs(termsta-startsta); i++){
+        if (startsta>termsta){//上り
+            timetoarrm+=noboritakemin[startsta-i]
+            timetoarrs+=noboritakesec[startsta-i]
+            if (i!=0&&i!=Math.abs(termsta-startsta)){
+                timetoarrs+=stoptime[startsta-1-i]}
+            
+        }
+        if (startsta<termsta){//下り
+            timetoarrm+=kudaritakemin[startsta+i]
+            timetoarrs+=kudaritakesec[startsta+i]
+            if (i!=0&&i!=Math.abs(termsta-startsta)){
+                timetoarrs+=stoptime[startsta-1+i]}
+        }
+    }
+    timetoarrm+=Math.floor(timetoarrs/60)
+        timetoarrs=timetoarrs%60
+        
+        let $dep=startDate(starttime);
+        $dep.setMinutes($dep.getMinutes()+timetoarrm)
+        $dep.setSeconds($dep.getSeconds()+timetoarrs)
+        let hh = String($dep.getHours()).padStart(2, "0");
+        let mm = String($dep.getMinutes()).padStart(2, "0");
+        let ss = String($dep.getSeconds()).padStart(2, "0");
+        return hh+":"+mm+":"+ss;
+}
+$("select,input").on("change",function(){
+    $(".laststoparr").text(terminatearr($("#departureTime").val(),Number($("#startingstation").val()),Number($("#destination").val())))
+})
 $(function(){
    
   // 終点の選択肢リストz

@@ -281,7 +281,12 @@ div.時刻 p{
     font-size: 15px;
     font-weight: bold;
 }
-
+.laststoparr{
+    color:#000000;
+    font-size: 20px;
+    margin-left:5px;
+    border-bottom: 2px solid rgb(255, 0, 0);
+}
 .背景画像{
     position: absolute;
     top: 42vh;
