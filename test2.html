@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title>test</title>
         <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <style>
             @charset "UTF-8";
             .deptim::-webkit-calendar-picker-indicator {
@@ -22,6 +22,7 @@
             font-family: kozuka-mincho-pr6n, serif;
             font-style: normal;
             font-weight: 500;
+            margin: 0;
             }
 
             #inputPanel{
@@ -35,6 +36,14 @@
                 background-color: #000000;
                 justify-content: space-evenly;
                 height: 10vh;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+            .item{
+                position:relative;
+                
+                color:#00FF00;
+                font-size:5vw;
             }
             .種別,
             .行先{
@@ -63,7 +72,7 @@
             }
             .consist{
                 display: flex;
-                font-size:30px;
+                font-size:5vw;
                 background-color: #000000;
                 color:#00FF00;
                 position: relative;
@@ -137,13 +146,16 @@
                     <option></option>
                 </select>
                 <div class="consist">
-                    <span>4両</span>
+                    <span>2両</span>
                 </div>
             </div>
-            <span>この列車は、各駅に停車します。</span>
+            <div class="container">
+                <span class="item">この<span class="type"></span>は、<span class="stopsta"></span>に停車します。</span>
+            </div>
         </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
+        let stopstacontent = "片島、稲生沢";
         const typelist=["回送","普通","準急","快速","急行","快速急行","特急"]
         const stalist = ["四城市","西四城","三城台二丁目","須津岡","府","狩川橋","比良新町","片島","鐘山公園","稲生沢","双葉茶屋","稲生沢温泉","笠浜"];
         $.each(stalist,function(i,name){
@@ -167,6 +179,40 @@
     })}
     $(".種別").on("change", updateTypeColor);
     updateTypeColor(); // 初期表示
+
+    // ★修正: 元の案内文テンプレート(.type span込み)を保存しておく
+    const itemTemplate = $(".item").html();
+    const noBoardingText = "この列車にはご乗車いただけません。";
+
+    function infoscroll(){
+        let containerwidth = $(".container").width();
+        let infolength=$(".item").width();
+        let cilength = containerwidth+infolength;
+        $(".item").stop(true, true);
+        if (containerwidth<infolength){
+            $(".item")
+            .css({left:containerwidth+"px"})
+            .animate({left:-cilength + "px"},infolength * 25,"linear",infoscroll);
+        }
+        else{
+            $(".item").css({ left: 0 }); // 固定表示
+        }
+    }
+    function infocontent(){
+        let selectColor = $(".種別").css("color");
+        let selecttype = $(".種別").val();
+        if (selecttype === "回送") {
+            
+            $(".item").text(noBoardingText);
+        } else {
+            $(".item").html(itemTemplate);
+            $(".type").text(selecttype).css("color", selectColor);
+            $(".stopsta").text(stopstacontent); 
+        }
+        infoscroll(); 
+    }
+    $(".種別").on("change", infocontent);
+    infocontent();
     </script>
     </body>
 </html>

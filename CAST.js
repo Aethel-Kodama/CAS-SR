@@ -199,8 +199,7 @@ if (back) { // 戻るボタンを押したときの挙動まとめ
                 nnowsta = nnowsta - 1*direction;
                 staname();
                 nstaname();
-                terminating();
-                
+                terminating();                
                 meachDate();
             }
             if (next.textContent=="停車")
@@ -316,24 +315,26 @@ $(function(){
   $.each(staList, function(i, name){
     $destination.append($("<option>").val(stalist.indexOf(name)).text(name));
   });
-  var $passingstation = $("#passingStation");
+  var $startingstation = $("#startingstation");
   $.each(staList, function(i, name){
-    $passingstation.append($("<option>").val(stalist.indexOf(name)).text(name));
+    $startingstation.append($("<option>").val(stalist.indexOf(name)).text(name));
   });
 
   // 列車情報を格納する変数
   var trainData = {
     type: "",
     destination: "",
-    passingStation: "",
+    startingstation: "",
     departureTime: ""
   };
 
   $("#applyBtn").on("click", function(){
-    
+    if($("#departureTime").val().trim()!=="11:45:14"){
+        document.getElementById("departureTime").value = currenttime + 300000;
+    }
     trainData.type            = $("#trainType").val();
     trainData.destination     = $("#destination").val();
-    trainData.passingStation  = $("#passingStation").val();
+    trainData.startingstation  = $("#startingstation").val();
     trainData.departureTime   = $("#departureTime").val();
     terminatesta = Number(trainData.destination);
     startingsta=nowsta;
