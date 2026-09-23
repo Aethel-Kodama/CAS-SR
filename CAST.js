@@ -1,4 +1,20 @@
-﻿//定義
+﻿// CAS-SR側(GitHub Pages)のJS
+fetch("https://cassrworker.aethel-bassist.workers.dev/me", {
+  credentials: "include", // Cookieを送るために必須
+})
+  .then((res) => {
+    if (!res.ok) throw new Error("未ログイン");
+    return res.json();
+  })
+  .then((data) => {
+    // ログイン済み → そのまま画面を表示
+    console.log("ログイン成功:", data.user);
+  })
+  .catch(() => {
+    // 未ログイン → Discordログインへ強制リダイレクト
+    window.location.href = "https://cassrworker.aethel-bassist.workers.dev/login";
+  });
+//定義
     
     let direction = -1; //SSR -> INZ:1,INZ -> SSR:-1
     let terminatesta = 0;
