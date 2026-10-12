@@ -141,7 +141,7 @@
                     <option>特急</option>
                     <option>回送</option>
                 </select>
-                <input type="time" class="deptim" step="1">
+                <input type="time" class="deptim">
                 <select class="行先">
                     <option></option>
                 </select>
@@ -152,6 +152,8 @@
             <div class="container">
                 <span class="item">この<span class="type"></span>は、<span class="stopsta"></span>に停車します。</span>
             </div>
+            <div class="">始発駅：</div><select class="終点"><option>四城市</option><option>三城台二丁目</option></select>
+            <div>発車秒：</div><select class="depsecond"></select>
         </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
@@ -180,8 +182,7 @@
     $(".種別").on("change", updateTypeColor);
     updateTypeColor(); // 初期表示
 
-    // ★修正: 元の案内文テンプレート(.type span込み)を保存しておく
-    const itemTemplate = $(".item").html();
+   const itemTemplate = $(".item").html();
     const noBoardingText = "この列車にはご乗車いただけません。";
 
     function infoscroll(){
@@ -213,6 +214,9 @@
     }
     $(".種別").on("change", infocontent);
     infocontent();
+    for (let i=0;i<60;i++){
+        $(".depsecond").append("<option>"+i+"</option>")
+    }
     </script>
     </body>
 </html>
